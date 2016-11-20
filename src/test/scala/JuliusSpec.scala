@@ -50,4 +50,37 @@ object JuliusSpec extends Properties("Julius") {
   property("RomanNumeral addition is associative") = forAll {
     (n: RomanNumeral, m: RomanNumeral, o: RomanNumeral) => (n + m) + o == n + (m + o)
   }
+
+  def checkList(l: List[RomanDigit]): Boolean = {
+    if (l.isEmpty) true
+    else {
+      l match {
+        case a :: b :: rest => (b < a || b == a) && checkList(b :: rest)
+        case _ => true
+      }
+    }
+  }
+
+  property("RomanNumeral always has its digits sorted from high to low") = forAll {
+    n: RomanNumeral => n match {
+      case RomanNumeral.Nulla => true
+      case RomanNumeral.RomanDigits(l) => checkList(l)
+    }
+  }
+
+  property("romannumeral is optimized after addition") = forAll {
+    (n: RomanNumeral, m: RomanNumeral) => {
+      val o = n + m
+      o match {
+        case RomanNumeral.Nulla => true
+        case RomanNumeral.RomanDigits(l) =>
+          !(l containsSlice List(I, I, I, I, I)) &&
+          !(l containsSlice List(V, V)) &&
+          !(l containsSlice List(X, X, X, X, X)) &&
+          !(l containsSlice List(L, L)) &&
+          !(l containsSlice List(C, C, C, C, C)) &&
+          !(l containsSlice List(D, D))
+      }
+    }
+  }
 }
