@@ -1,6 +1,7 @@
 import org.scalacheck.Gen._
 import org.scalacheck.{Arbitrary, Gen, Properties}
 import org.scalacheck.Prop.forAll
+import JuliusImplicits._
 
 object JuliusSpec extends Properties("Julius") {
   def genRomanDigit: Gen[RomanDigit] = oneOf(List(M, D, C, L, X, V, I))
@@ -82,5 +83,9 @@ object JuliusSpec extends Properties("Julius") {
           !(l containsSlice List(D, D))
       }
     }
+  }
+
+  property("adding RomanNumerals and then converting to int is the same as converting to int and then adding") = forAll {
+    (n: RomanNumeral, m: RomanNumeral) => (n + m).toInt == n.toInt + m.toInt
   }
 }
