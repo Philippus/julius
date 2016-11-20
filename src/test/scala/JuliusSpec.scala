@@ -42,4 +42,12 @@ object JuliusSpec extends Properties("Julius") {
       case RomanNumeral.RomanDigits(l) => l.nonEmpty
     }
   }
+
+  property("RomanNumeral addition is commutative") = forAll {
+    (n: RomanNumeral, m: RomanNumeral) => (n + m) == (m + n)
+  }
+
+  property("RomanNumeral addition is associative") = forAll {
+    (n: RomanNumeral, m: RomanNumeral, o: RomanNumeral) => (n + m) + o == n + (m + o)
+  }
 }
