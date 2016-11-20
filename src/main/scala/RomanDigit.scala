@@ -1,5 +1,11 @@
-sealed trait RomanDigit {
-  def <(that: RomanDigit): Boolean = {
+sealed trait RomanDigit extends Ordered[RomanDigit] {
+  def compare(that: RomanDigit) = {
+    if (this == that) 0
+    else if (this < that) 1
+    else -1
+  }
+
+  override def <(that: RomanDigit): Boolean = {
     that match {
       case V if this == I => true
       case X if this < V || this == V => true
