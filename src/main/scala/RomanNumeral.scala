@@ -5,5 +5,7 @@ object RomanNumeral {
   final case class RomanDigits(l: List[RomanDigit]) extends RomanNumeral
 
   def apply(): RomanNumeral = Nulla
-  def apply(l: List[RomanDigit]): RomanNumeral = RomanDigits(l)
+  def apply(l: List[RomanDigit]): RomanNumeral = {
+    if (l.isEmpty) Nulla else RomanDigits(l)
+  }
 }
