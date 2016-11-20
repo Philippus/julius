@@ -6,10 +6,10 @@ sealed trait RomanNumeral {
   import RomanNumeral.{Nulla, RomanDigits}
   def +(that: RomanNumeral): RomanNumeral = {
     this match {
-      case Nulla => that.optimize
+      case Nulla => that
       case RomanDigits(l) => that match {
-        case Nulla => RomanNumeral(l).optimize
-        case RomanDigits(r) => RomanNumeral(l ++ r).optimize
+        case Nulla => RomanNumeral(l)
+        case RomanDigits(r) => RomanNumeral(l ++ r)
       }
     }
   }
@@ -49,6 +49,6 @@ object RomanNumeral {
 
   def apply(): RomanNumeral = Nulla
   def apply(l: List[RomanDigit]): RomanNumeral = {
-    if (l.isEmpty) Nulla else RomanDigits(l.sortWith(_ < _).reverse)
+    if (l.isEmpty) Nulla else RomanDigits(l.sortWith(_ < _).reverse).optimize
   }
 }
