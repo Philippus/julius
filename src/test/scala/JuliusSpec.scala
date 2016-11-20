@@ -3,16 +3,16 @@ import org.scalacheck.{Arbitrary, Gen, Properties}
 import org.scalacheck.Prop.forAll
 
 object JuliusSpec extends Properties("Julius") {
-  implicit val arbitraryRomanDigit: Arbitrary[RomanDigit] = Arbitrary(
-    oneOf(List(M, D, C, L, X, V, I))
-  )
+  def genRomanDigit: Gen[RomanDigit] = oneOf(List(M, D, C, L, X, V, I))
+
+  implicit val arbitraryRomanDigit: Arbitrary[RomanDigit] = Arbitrary(genRomanDigit)
 
   def romanNumerals: Gen[RomanNumeral] = Gen.oneOf(genNulla, genRomanDigits)
 
   def genNulla: Gen[RomanNumeral] = RomanNumeral()
 
   def genRomanDigits: Gen[RomanNumeral] = for {
-    x <- nonEmptyListOf(oneOf(List(M, D, C, L, X, V, I)))
+    x <- nonEmptyListOf(genRomanDigit)
   } yield RomanNumeral(x)
 
   property("RomanDigit.generator only generates roman digits") = forAll {
