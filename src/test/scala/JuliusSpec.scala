@@ -7,7 +7,7 @@ object JuliusSpec extends Properties("Julius") {
 
   implicit val arbitraryRomanDigit: Arbitrary[RomanDigit] = Arbitrary(genRomanDigit)
 
-  def romanNumerals: Gen[RomanNumeral] = Gen.oneOf(genNulla, genRomanDigits)
+  def genRomanNumeral: Gen[RomanNumeral] = Gen.oneOf(genNulla, genRomanDigits)
 
   def genNulla: Gen[RomanNumeral] = RomanNumeral()
 
@@ -15,11 +15,13 @@ object JuliusSpec extends Properties("Julius") {
     x <- nonEmptyListOf(genRomanDigit)
   } yield RomanNumeral(x)
 
+  implicit val arbitraryRomanNumeral: Arbitrary[RomanNumeral] = Arbitrary(genRomanNumeral)
+
   property("RomanDigit.generator only generates roman digits") = forAll {
     r: RomanDigit => r == I || r == V || r == X || r == L || r == C || r == D || r == M
   }
 
-  property("RomanNumeral.generator only generates roman numerals") = forAll(romanNumerals) {
+  property("RomanNumeral.generator only generates roman numerals") = forAll {
     n: RomanNumeral => n == RomanNumeral.Nulla || n.isInstanceOf[RomanNumeral.RomanDigits]
   }
 }
