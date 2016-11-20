@@ -1,4 +1,4 @@
-sealed trait RomanDigit extends Ordered[RomanDigit] {
+sealed trait RomanDigit extends Ordered[RomanDigit] with Product with Serializable {
   def compare(that: RomanDigit) = {
     if (this == that) 0
     else if (this < that) 1
