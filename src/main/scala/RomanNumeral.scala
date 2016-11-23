@@ -4,35 +4,31 @@ import ExtendedList._
 
 sealed trait RomanNumeral {
   import RomanNumeral.{Nulla, RomanDigits}
-  def +(that: RomanNumeral): RomanNumeral = {
-    this match {
-      case Nulla => that
-      case RomanDigits(l) => that match {
-        case Nulla => RomanNumeral(l)
-        case RomanDigits(r) => RomanNumeral(l ++ r)
-      }
+
+  def +(that: RomanNumeral): RomanNumeral = this match {
+    case Nulla => that
+    case RomanDigits(l) => that match {
+      case Nulla => RomanNumeral(l)
+      case RomanDigits(r) => RomanNumeral(l ++ r)
     }
   }
 
-  def optimize: RomanNumeral = {
-    this match {
-      case Nulla => this
-      case RomanDigits(l) => {
-        val substitutes = ListMap[List[RomanDigit], List[RomanDigit]](
-          List(I, I, I, I, I) -> List(V),
-          List(V, V) -> List(X),
-          List(X, X, X, X, X) -> List(L),
-          List(L, L) -> List(C),
-          List(C, C, C, C, C) -> List(D),
-          List(D, D) -> List(M)
-        )
-        var optimizedList = l
-        for ((trg, rpl) <- substitutes) {
-          optimizedList = optimizedList.replaceSlice(trg, rpl)
-        }
-        RomanDigits(optimizedList)
+  def optimize: RomanNumeral = this match {
+    case Nulla => this
+    case RomanDigits(l) =>
+      val substitutes = ListMap[List[RomanDigit], List[RomanDigit]](
+        List(I, I, I, I, I) -> List(V),
+        List(V, V) -> List(X),
+        List(X, X, X, X, X) -> List(L),
+        List(L, L) -> List(C),
+        List(C, C, C, C, C) -> List(D),
+        List(D, D) -> List(M)
+      )
+      var optimizedList = l
+      for ((trg, rpl) <- substitutes) {
+        optimizedList = optimizedList.replaceSlice(trg, rpl)
       }
-    }
+      RomanDigits(optimizedList)
   }
 }
 
