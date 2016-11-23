@@ -16,6 +16,8 @@ sealed trait RomanDigit extends Ordered[RomanDigit] with Product with Serializab
   }
 
   override def <=(that: RomanDigit): Boolean = this < that || this == that
+
+  override def >(that: RomanDigit): Boolean = !(this <= that)
 }
 
 case object I extends RomanDigit
