@@ -19,9 +19,11 @@ sealed trait RomanNumeral {
     }
   }
 
-  def <=(that: RomanNumeral): Boolean = {
-    this < that || this == that
-  }
+  def <=(that: RomanNumeral): Boolean = this < that || this == that
+
+  def >(that: RomanNumeral): Boolean = !(this <= that)
+
+  def >=(that: RomanNumeral): Boolean = this > that || this == that
 
   def +(that: RomanNumeral): RomanNumeral = this match {
     case Nulla => that
