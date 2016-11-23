@@ -3,6 +3,7 @@ import scala.collection.immutable.ListMap
 import ExtendedList._
 
 sealed trait RomanNumeral {
+
   import RomanNumeral.{Nulla, RomanDigits}
 
   def +(that: RomanNumeral): RomanNumeral = this match {
@@ -11,6 +12,61 @@ sealed trait RomanNumeral {
       case Nulla => RomanNumeral(l)
       case RomanDigits(r) => RomanNumeral(l ++ r)
     }
+  }
+
+  def *(that: RomanNumeral) = this match {
+    case Nulla => Nulla
+    case RomanDigits(_) => that match {
+      case Nulla => Nulla
+      case RomanDigits(_) =>
+        def multiplyHelper(r: RomanNumeral, s: RomanNumeral, acc: List[(RomanNumeral, RomanNumeral)]): List[(RomanNumeral, RomanNumeral)] = {
+          if (r == RomanNumeral(List(I))) acc ::: List((r, s))
+          else multiplyHelper(r.halve, s.double, acc ::: List((r, s)))
+        }
+        multiplyHelper(this, that, acc = List()).filter(_._1.isOdd).map(_._2).reduce(_ + _)
+    }
+  }
+
+  def halve: RomanNumeral = this match {
+    case Nulla => Nulla
+    case RomanDigits(l) =>
+      def halveHelper(l: List[RomanDigit], acc: List[RomanDigit]): List[RomanDigit] = {
+        if (l.isEmpty) acc
+        else {
+          l match {
+            case M :: tl => halveHelper(tl, acc ::: List(D))
+            case D :: tl => halveHelper(C :: tl, acc ::: List(C, C))
+            case C :: tl => halveHelper(tl, acc ::: List(L))
+            case L :: tl => halveHelper(X :: tl, acc ::: List(X, X))
+            case X :: tl => halveHelper(tl, acc ::: List(V))
+            case V :: tl => halveHelper(I :: tl, acc ::: List(I, I))
+            case I :: I :: tl => halveHelper(tl, acc ::: List(I))
+            case I :: tl => halveHelper(tl, acc)
+            case _ => acc
+          }
+        }
+      }
+      RomanNumeral(halveHelper(l, acc = List()))
+  }
+
+  def double: RomanNumeral = {
+    this + this
+  }
+
+  def isOdd: Boolean = this match {
+    case Nulla => false
+    case RomanDigits(l) =>
+      def isOddHelper(l: List[RomanDigit], isOdd: Boolean): Boolean = {
+        if (l.isEmpty) isOdd
+        else {
+          l match {
+            case V :: tl => isOddHelper(tl, !isOdd)
+            case I :: tl => isOddHelper(tl, !isOdd)
+            case _ => isOddHelper(l.tail, isOdd)
+          }
+        }
+      }
+      isOddHelper(l, isOdd = false)
   }
 
   def optimize: RomanNumeral = this match {

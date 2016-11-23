@@ -8,6 +8,8 @@ object JuliusSpec extends Properties("Julius") {
 
   implicit val arbitraryRomanDigit: Arbitrary[RomanDigit] = Arbitrary(genRomanDigit)
 
+  def genLimitedRomanNumeral: Gen[RomanNumeral] = genRomanNumeral suchThat(_.toInt < 4000)
+
   def genRomanNumeral: Gen[RomanNumeral] = Gen.oneOf(genNulla, genRomanDigits)
 
   def genNulla: Gen[RomanNumeral] = RomanNumeral()
@@ -112,6 +114,37 @@ object JuliusSpec extends Properties("Julius") {
         case RomanNumeral.Nulla => false
         case RomanNumeral.RomanDigits(_) => true
       }
+    }
+  }
+
+  property("RomanNumeral isOdd") = forAll {
+    (n: RomanNumeral) => {
+      n.isOdd == (n.toInt % 2 != 0)
+    }
+  }
+
+  property("RomanNumeral doubling then halving") = forAll {
+    (n: RomanNumeral) => {
+      n == n.double.halve
+    }
+  }
+
+  property("RomanNumeral halving then doubling") = forAll {
+    (n: RomanNumeral) => {
+      if (n.isOdd) n == n.halve.double + I
+      else n == n.halve.double
+    }
+  }
+
+  property("RomanNumeral multiplication is commutative") = forAll {
+    (n: RomanNumeral, m: RomanNumeral) => {
+      n * m == m * n
+    }
+  }
+
+  property("RomanNumeral multiplication is associative") = forAll(genLimitedRomanNumeral, genLimitedRomanNumeral, genLimitedRomanNumeral) {
+    (n: RomanNumeral, m: RomanNumeral, o: RomanNumeral) => {
+      (n * m) * o == n * (m * o)
     }
   }
 
