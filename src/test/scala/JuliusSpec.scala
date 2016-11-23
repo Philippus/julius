@@ -118,15 +118,11 @@ object JuliusSpec extends Properties("Julius") {
   }
 
   property("RomanNumeral isOdd") = forAll {
-    (n: RomanNumeral) => {
-      n.isOdd == (n.toInt % 2 != 0)
-    }
+    (n: RomanNumeral) => n.isOdd == (n.toInt % 2 != 0)
   }
 
   property("RomanNumeral doubling then halving") = forAll {
-    (n: RomanNumeral) => {
-      n == n.double.halve
-    }
+    (n: RomanNumeral) => n == n.double.halve
   }
 
   property("RomanNumeral halving then doubling") = forAll {
@@ -137,27 +133,19 @@ object JuliusSpec extends Properties("Julius") {
   }
 
   property("RomanNumeral multiplication is commutative") = forAll {
-    (n: RomanNumeral, m: RomanNumeral) => {
-      n * m == m * n
-    }
+    (n: RomanNumeral, m: RomanNumeral) => n * m == m * n
   }
 
   property("RomanNumeral multiplication is associative") = forAll(genLimitedRomanNumeral, genLimitedRomanNumeral, genLimitedRomanNumeral) {
-    (n: RomanNumeral, m: RomanNumeral, o: RomanNumeral) => {
-      (n * m) * o == n * (m * o)
-    }
+    (n: RomanNumeral, m: RomanNumeral, o: RomanNumeral) => (n * m) * o == n * (m * o)
   }
 
   property("RomanNumeral adding is left distributive") = forAll {
-    (n: RomanNumeral, m: RomanNumeral, o: RomanNumeral) => {
-      n * (m + o) == (n * m) + (n * o)
-    }
+    (n: RomanNumeral, m: RomanNumeral, o: RomanNumeral) => n * (m + o) == (n * m) + (n * o)
   }
 
   property("RomanNumeral adding is right distributive") = forAll {
-    (n: RomanNumeral, m: RomanNumeral, o: RomanNumeral) => {
-      (m + o) * n == (m * n) + (o * n)
-    }
+    (n: RomanNumeral, m: RomanNumeral, o: RomanNumeral) => (m + o) * n == (m * n) + (o * n)
   }
 
   property("adding RomanNumerals and then converting to int is the same as converting to int and then adding") = forAll {
