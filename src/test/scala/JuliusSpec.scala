@@ -148,6 +148,18 @@ object JuliusSpec extends Properties("Julius") {
     }
   }
 
+  property("RomanNumeral adding is left distributive") = forAll {
+    (n: RomanNumeral, m: RomanNumeral, o: RomanNumeral) => {
+      n * (m + o) == (n * m) + (n * o)
+    }
+  }
+
+  property("RomanNumeral adding is right distributive") = forAll {
+    (n: RomanNumeral, m: RomanNumeral, o: RomanNumeral) => {
+      (m + o) * n == (m * n) + (o * n)
+    }
+  }
+
   property("adding RomanNumerals and then converting to int is the same as converting to int and then adding") = forAll {
     (n: RomanNumeral, m: RomanNumeral) => (n + m).toInt == n.toInt + m.toInt
   }
