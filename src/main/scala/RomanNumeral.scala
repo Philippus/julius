@@ -121,6 +121,25 @@ sealed trait RomanNumeral {
       isOddHelper(l, isOdd = false)
   }
 
+  def /(that: RomanNumeral): RomanNumeral = this match {
+    case Nulla => Nulla
+    case RomanDigits(_) => {
+      val numerals = List(M, D, C, L, X, V, I)
+      val multiples = numerals.zip(numerals.map(x => RomanNumeral(List(x)) * that))
+
+      def divideHelper(multiples: List[(RomanDigit, RomanNumeral)], result: List[RomanDigit], remainder: RomanNumeral): RomanNumeral = {
+        if (multiples.isEmpty) RomanNumeral(result)
+        else {
+          val multiple = multiples.head
+          if (multiple._2 <= remainder) divideHelper(multiples, result ++ List(multiple._1), remainder - multiple._2)
+          else divideHelper(multiples.tail, result, remainder)
+        }
+      }
+
+      divideHelper(multiples, result = List(), remainder = this)
+    }
+  }
+
   def optimize: RomanNumeral = this match {
     case Nulla => this
     case RomanDigits(l) =>
