@@ -5,17 +5,17 @@ sealed trait RomanDigit extends Ordered[RomanDigit] with Product with Serializab
     else -1
   }
 
-  override def <(that: RomanDigit): Boolean = {
-    that match {
-      case V if this == I => true
-      case X if this < V || this == V => true
-      case L if this < X || this == X => true
-      case C if this < L || this == L => true
-      case D if this < C || this == C => true
-      case M if this < D || this == D => true
-      case _ => false
-    }
+  override def <(that: RomanDigit): Boolean = that match {
+    case I => false
+    case V => this == I
+    case X => this <= V
+    case L => this <= X
+    case C => this <= L
+    case D => this <= C
+    case M => this <= D
   }
+
+  override def <=(that: RomanDigit): Boolean = this < that || this == that
 }
 
 case object I extends RomanDigit

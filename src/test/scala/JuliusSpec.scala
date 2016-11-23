@@ -69,7 +69,7 @@ object JuliusSpec extends Properties("Julius") {
     }
   }
 
-  property("romannumeral is optimized after addition") = forAll {
+  property("RomanNumeral is optimized after addition") = forAll {
     (n: RomanNumeral, m: RomanNumeral) => {
       val o = n + m
       o match {
@@ -81,6 +81,36 @@ object JuliusSpec extends Properties("Julius") {
           !(l containsSlice List(L, L)) &&
           !(l containsSlice List(C, C, C, C, C)) &&
           !(l containsSlice List(D, D))
+      }
+    }
+  }
+
+  property("RomanDigit can be added to another") = forAll {
+    (r: RomanDigit, s: RomanDigit) => {
+      val o = r + s
+      o match {
+        case RomanNumeral.Nulla => false
+        case RomanNumeral.RomanDigits(_) => true
+      }
+    }
+  }
+
+  property("RomanDigit can be added to a RomanNumeral") = forAll {
+    (n: RomanNumeral, r: RomanDigit) => {
+      val o = n + r
+      o match {
+        case RomanNumeral.Nulla => false
+        case RomanNumeral.RomanDigits(_) => true
+      }
+    }
+  }
+
+  property("RomanNumeral can be added to a RomanDigit") = forAll {
+    (r: RomanDigit, n: RomanNumeral) => {
+      val o = r + n
+      o match {
+        case RomanNumeral.Nulla => false
+        case RomanNumeral.RomanDigits(_) => true
       }
     }
   }
