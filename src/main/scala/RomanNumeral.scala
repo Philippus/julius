@@ -7,7 +7,7 @@ sealed trait RomanNumeral {
   import RomanNumeral.{Nulla, RomanDigits}
 
   def <(that: RomanNumeral): Boolean = this match {
-    case Nulla => !(that == Nulla)
+    case Nulla => that != Nulla
     case RomanDigits(l) => that match {
       case Nulla => false
       case RomanDigits(r) =>
