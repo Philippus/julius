@@ -26,13 +26,6 @@ sealed trait RomanNumeral {
           List(C, C, C, C, C) -> List(D),
           List(D, D) -> List(M)
         )
-        def optimizeHelper(substitutes: ListMap[List[RomanDigit], List[RomanDigit]], l: List[RomanDigit]): List[RomanDigit] = {
-          if (substitutes.isEmpty) {
-            l
-          } else {
-            optimizeHelper(substitutes.tail, l.replaceSlice(substitutes.head._1, substitutes.head._2))
-          }
-        }
         var optimizedList = l
         for ((trg, rpl) <- substitutes) {
           optimizedList = optimizedList.replaceSlice(trg, rpl)
