@@ -8,7 +8,7 @@ object JuliusSpec extends Properties("Julius") {
 
   implicit val arbitraryRomanDigit: Arbitrary[RomanDigit] = Arbitrary(genRomanDigit)
 
-  def genLimitedRomanNumeral: Gen[RomanNumeral] = genRomanNumeral suchThat(_.toInt < 4000)
+  def genLimitedRomanNumeral: Gen[RomanNumeral] = genRomanNumeral retryUntil (_.toInt < 1000)
 
   def genRomanNumeral: Gen[RomanNumeral] = Gen.oneOf(genNulla, genRomanDigits)
 
