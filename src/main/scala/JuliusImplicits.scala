@@ -1,5 +1,7 @@
 object JuliusImplicits {
   implicit class RomanDigitToInt(r: RomanDigit) {
+    def +(that: RomanDigit): RomanNumeral = RomanNumeral(List(r, that))
+
     def +(that: RomanNumeral): RomanNumeral = RomanNumeral(List(r)) + that
 
     def toInt: Int = r match {
