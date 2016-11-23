@@ -163,4 +163,36 @@ object JuliusSpec extends Properties("Julius") {
   property("adding RomanNumerals and then converting to int is the same as converting to int and then adding") = forAll {
     (n: RomanNumeral, m: RomanNumeral) => (n + m).toInt == n.toInt + m.toInt
   }
+
+  property("RomanDigit comparison: <") = forAll {
+    (r: RomanDigit, s: RomanDigit) => (r < s) == (r.toInt < s.toInt)
+  }
+
+  property("RomanDigit comparison: <=") = forAll {
+    (r: RomanDigit, s: RomanDigit) => (r <= s) == (r.toInt <= s.toInt)
+  }
+
+  property("RomanDigit comparison: >") = forAll {
+    (r: RomanDigit, s: RomanDigit) => (r > s) == (r.toInt > s.toInt)
+  }
+
+  property("RomanDigit comparison: >=") = forAll {
+    (r: RomanDigit, s: RomanDigit) => (r >= s) == (r.toInt >= s.toInt)
+  }
+
+  property("RomanNumeral comparison: <") = forAll {
+    (n: RomanNumeral, m: RomanNumeral) => (n < m) == (n.toInt < m.toInt)
+  }
+
+  property("RomanNumeral comparison: <=") = forAll {
+    (n: RomanNumeral, m: RomanNumeral) => (n <= m) == (n.toInt <= m.toInt)
+  }
+
+  property("RomanNumeral comparison: >") = forAll {
+    (n: RomanNumeral, m: RomanNumeral) => (n > m) == (n.toInt > m.toInt)
+  }
+
+  property("RomanNumeral comparison: >=") = forAll {
+    (n: RomanNumeral, m: RomanNumeral) => (n >= m) == (n.toInt >= m.toInt)
+  }
 }
