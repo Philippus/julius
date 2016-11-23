@@ -148,7 +148,51 @@ object JuliusSpec extends Properties("Julius") {
     (n: RomanNumeral, m: RomanNumeral, o: RomanNumeral) => (m + o) * n == (m * n) + (o * n)
   }
 
+  property("RomanNumeral adding then subtracting") = forAll {
+    (n: RomanNumeral, m: RomanNumeral) => n == n + m - m
+  }
+
+  property("RomanNumeral subtracting is left distributive") = forAll {
+    (n: RomanNumeral, m: RomanNumeral, o: RomanNumeral) => n * (m - o) == (n * m) - (n * o)
+  }
+
+  property("RomanNumeral subtracting is right distributive") = forAll {
+    (n: RomanNumeral, m: RomanNumeral, o: RomanNumeral) => (m - o) * n == (m * n) - (o * n)
+  }
+
   property("adding RomanNumerals and then converting to int is the same as converting to int and then adding") = forAll {
     (n: RomanNumeral, m: RomanNumeral) => (n + m).toInt == n.toInt + m.toInt
+  }
+
+  property("RomanDigit comparison: <") = forAll {
+    (r: RomanDigit, s: RomanDigit) => (r < s) == (r.toInt < s.toInt)
+  }
+
+  property("RomanDigit comparison: <=") = forAll {
+    (r: RomanDigit, s: RomanDigit) => (r <= s) == (r.toInt <= s.toInt)
+  }
+
+  property("RomanDigit comparison: >") = forAll {
+    (r: RomanDigit, s: RomanDigit) => (r > s) == (r.toInt > s.toInt)
+  }
+
+  property("RomanDigit comparison: >=") = forAll {
+    (r: RomanDigit, s: RomanDigit) => (r >= s) == (r.toInt >= s.toInt)
+  }
+
+  property("RomanNumeral comparison: <") = forAll {
+    (n: RomanNumeral, m: RomanNumeral) => (n < m) == (n.toInt < m.toInt)
+  }
+
+  property("RomanNumeral comparison: <=") = forAll {
+    (n: RomanNumeral, m: RomanNumeral) => (n <= m) == (n.toInt <= m.toInt)
+  }
+
+  property("RomanNumeral comparison: >") = forAll {
+    (n: RomanNumeral, m: RomanNumeral) => (n > m) == (n.toInt > m.toInt)
+  }
+
+  property("RomanNumeral comparison: >=") = forAll {
+    (n: RomanNumeral, m: RomanNumeral) => (n >= m) == (n.toInt >= m.toInt)
   }
 }
