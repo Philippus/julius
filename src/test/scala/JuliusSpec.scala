@@ -96,8 +96,8 @@ object JuliusSpec extends Properties("Julius") {
   }
 
   property("RomanDigit can be added to a RomanNumeral") = forAll {
-    (r: RomanDigit, n: RomanNumeral) => {
-      val o = r + n
+    (n: RomanNumeral, r: RomanDigit) => {
+      val o = n + r
       o match {
         case RomanNumeral.Nulla => false
         case RomanNumeral.RomanDigits(_) => true
@@ -107,7 +107,7 @@ object JuliusSpec extends Properties("Julius") {
 
   property("RomanNumeral can be added to a RomanDigit") = forAll {
     (r: RomanDigit, n: RomanNumeral) => {
-      val o = n + r
+      val o = r + n
       o match {
         case RomanNumeral.Nulla => false
         case RomanNumeral.RomanDigits(_) => true
