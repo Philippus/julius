@@ -72,21 +72,16 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
   def halve: RomanNumeral = this match {
     case Nulla => Nulla
     case RomanDigits(l) =>
-      def halveHelper(l: List[RomanDigit], acc: List[RomanDigit]): RomanNumeral = {
-        if (l.isEmpty) RomanNumeral(acc)
-        else {
-          l match {
-            case M :: tl => halveHelper(tl, acc ::: List(D))
-            case D :: tl => halveHelper(C :: tl, acc ::: List(C, C))
-            case C :: tl => halveHelper(tl, acc ::: List(L))
-            case L :: tl => halveHelper(X :: tl, acc ::: List(X, X))
-            case X :: tl => halveHelper(tl, acc ::: List(V))
-            case V :: tl => halveHelper(I :: tl, acc ::: List(I, I))
-            case I :: I :: tl => halveHelper(tl, acc ::: List(I))
-            case I :: tl => halveHelper(tl, acc)
-            case _ => RomanNumeral(acc)
-          }
-        }
+      def halveHelper(l: List[RomanDigit], acc: List[RomanDigit]): RomanNumeral = l match {
+        case M :: tl => halveHelper(tl, acc ::: List(D))
+        case D :: tl => halveHelper(C :: tl, acc ::: List(C, C))
+        case C :: tl => halveHelper(tl, acc ::: List(L))
+        case L :: tl => halveHelper(X :: tl, acc ::: List(X, X))
+        case X :: tl => halveHelper(tl, acc ::: List(V))
+        case V :: tl => halveHelper(I :: tl, acc ::: List(I, I))
+        case I :: I :: tl => halveHelper(tl, acc ::: List(I))
+        case I :: tl => halveHelper(tl, acc)
+        case Nil => RomanNumeral(acc)
       }
       halveHelper(l, acc = List())
   }
