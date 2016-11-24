@@ -40,7 +40,7 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
         case Nulla => this
         case RomanDigits(_) if this <= that => Nulla
         case RomanDigits(r) =>
-          def minusHelper(r: List[RomanDigit], s: List[RomanDigit]): List[RomanDigit] = {
+          def minusHelper(r: List[RomanDigit], s: List[RomanDigit]): RomanNumeral = {
             val substitutes = ListMap[RomanDigit, List[RomanDigit]](
               V -> List(I, I, I, I, I),
               X -> List(V, V),
@@ -55,13 +55,13 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
               largerDigits.init ::: substitutes.getOrElse(smallestLargerDigit, List(smallestLargerDigit)) ::: smallerOrEqualDigits
             }
 
-            if (s.isEmpty) r
+            if (s.isEmpty) RomanNumeral(r)
             else {
               val rExpanded = findAndExpand(r, s.head)
               minusHelper(rExpanded.diff(s), s.diff(rExpanded))
             }
           }
-          RomanNumeral(minusHelper(l.diff(r), r.diff(l)))
+          minusHelper(l.diff(r), r.diff(l))
       }
     }
   }
