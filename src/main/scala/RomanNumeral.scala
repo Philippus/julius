@@ -66,7 +66,10 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
         if (r == RomanNumeral(List(I))) acc ::: List((r, s))
         else multiplyHelper(r.halve, s.double, acc ::: List((r, s)))
       }
-      multiplyHelper(this, that, acc = List()).filter(_._1.isOdd).map(_._2).reduce(_ + _)
+      multiplyHelper(this, that, acc = List())
+        .filter { case (halve, _) => halve.isOdd }
+        .map { case (_, double) => double }
+        .reduce(_ + _)
   }
 
   def halve: RomanNumeral = this match {
