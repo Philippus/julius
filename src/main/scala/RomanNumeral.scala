@@ -127,16 +127,15 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
       val numerals = List(M, D, C, L, X, V, I)
       val multiples = numerals.zip(numerals.map(x => RomanNumeral(List(x)) * that))
 
-      def divideHelper(multiples: List[(RomanDigit, RomanNumeral)], result: List[RomanDigit], remainder: RomanNumeral): RomanNumeral = {
-        if (multiples.isEmpty) RomanNumeral(result)
+      def divideHelper(multiples: List[(RomanDigit, RomanNumeral)], acc: List[RomanDigit], remainder: RomanNumeral): RomanNumeral = {
+        if (multiples.isEmpty) RomanNumeral(acc)
         else {
           val multiple = multiples.head
-          if (multiple._2 <= remainder) divideHelper(multiples, result ++ List(multiple._1), remainder - multiple._2)
-          else divideHelper(multiples.tail, result, remainder)
+          if (multiple._2 <= remainder) divideHelper(multiples, acc ++ List(multiple._1), remainder - multiple._2)
+          else divideHelper(multiples.tail, acc, remainder)
         }
       }
-
-      divideHelper(multiples, result = List(), remainder = this)
+      divideHelper(multiples, acc = List(), remainder = this)
     }
   }
 
