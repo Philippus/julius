@@ -17,11 +17,11 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
     case RomanDigits(l) => that match {
       case Nulla => false
       case RomanDigits(r) =>
-        def lessThanHelper(digits: List[RomanDigit], l: List[RomanDigit], r: List[RomanDigit], compare: Int): Int = {
+        def lessThanHelper(digits: List[RomanDigit], l: List[RomanDigit], r: List[RomanDigit], compare: Int): Boolean = {
           if (compare == 0 && digits.nonEmpty) lessThanHelper(digits.tail, l, r, l.count(_ == digits.head).compare(r.count(_ == digits.head)))
-          else compare
+          else compare < 0
         }
-        lessThanHelper(List(M, D, C, L, X, V, I), l, r, 0) < 0
+        lessThanHelper(List(M, D, C, L, X, V, I), l, r, 0)
     }
   }
 
