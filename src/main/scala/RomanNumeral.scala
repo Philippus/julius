@@ -92,9 +92,7 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
       halveHelper(l, acc = List())
   }
 
-  def double: RomanNumeral = {
-    this + this
-  }
+  def double: RomanNumeral = this + this
 
   def isOdd: Boolean = this match {
     case Nulla => false
