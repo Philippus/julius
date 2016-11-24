@@ -18,8 +18,8 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
       case Nulla => false
       case RomanDigits(r) =>
         def lessThanHelper(digits: List[RomanDigit], l: List[RomanDigit], r: List[RomanDigit], compare: Int): Boolean = {
-          if (compare == 0 && digits.nonEmpty) lessThanHelper(digits.tail, l, r, l.count(_ == digits.head).compare(r.count(_ == digits.head)))
-          else compare < 0
+          if (compare != 0 || digits.isEmpty) compare < 0
+          else lessThanHelper(digits.tail, l, r, l.count(_ == digits.head).compare(r.count(_ == digits.head)))
         }
         lessThanHelper(List(M, D, C, L, X, V, I), l, r, 0)
     }
