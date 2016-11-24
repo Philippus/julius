@@ -82,8 +82,8 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
   def halve: RomanNumeral = this match {
     case Nulla => Nulla
     case RomanDigits(l) =>
-      def halveHelper(l: List[RomanDigit], acc: List[RomanDigit]): List[RomanDigit] = {
-        if (l.isEmpty) acc
+      def halveHelper(l: List[RomanDigit], acc: List[RomanDigit]): RomanNumeral = {
+        if (l.isEmpty) RomanNumeral(acc)
         else {
           l match {
             case M :: tl => halveHelper(tl, acc ::: List(D))
@@ -94,11 +94,11 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
             case V :: tl => halveHelper(I :: tl, acc ::: List(I, I))
             case I :: I :: tl => halveHelper(tl, acc ::: List(I))
             case I :: tl => halveHelper(tl, acc)
-            case _ => acc
+            case _ => RomanNumeral(acc)
           }
         }
       }
-      RomanNumeral(halveHelper(l, acc = List()))
+      halveHelper(l, acc = List())
   }
 
   def double: RomanNumeral = {
