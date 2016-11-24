@@ -92,10 +92,14 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
     case Nulla => false
     case RomanDigits(l) =>
       def isOddHelper(l: List[RomanDigit], isOdd: Boolean): Boolean = l match {
+        case M :: tl => isOddHelper(tl, isOdd)
+        case D :: tl => isOddHelper(tl, isOdd)
+        case C :: tl => isOddHelper(tl, isOdd)
+        case L :: tl => isOddHelper(tl, isOdd)
+        case X :: tl => isOddHelper(tl, isOdd)
         case V :: tl => isOddHelper(tl, !isOdd)
         case I :: tl => isOddHelper(tl, !isOdd)
         case Nil => isOdd
-        case _ => isOddHelper(l.tail, isOdd)
       }
       isOddHelper(l, isOdd = false)
   }
