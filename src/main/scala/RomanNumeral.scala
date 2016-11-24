@@ -45,7 +45,7 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
 
         def findAndExpand(r: List[RomanDigit], largestRemaining: RomanDigit): List[RomanDigit] = {
           val (largerDigits, smallerOrEqualDigits) = r.partition(_ > largestRemaining)
-          val smallestLargerDigit = largerDigits.reverse.head
+          val smallestLargerDigit = largerDigits.last
           largerDigits.init ::: substitutes.getOrElse(smallestLargerDigit, List(smallestLargerDigit)) ::: smallerOrEqualDigits
         }
 
