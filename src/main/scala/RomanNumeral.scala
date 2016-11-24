@@ -29,38 +29,35 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
     case (RomanDigits(l), RomanDigits(r)) => RomanNumeral(l ++ r)
   }
 
-  def -(that: RomanNumeral): RomanNumeral = {
-    this match {
-      case Nulla => Nulla
-      case RomanDigits(l) => that match {
-        case Nulla => this
-        case RomanDigits(_) if this <= that => Nulla
-        case RomanDigits(r) =>
-          def minusHelper(r: List[RomanDigit], s: List[RomanDigit]): RomanNumeral = {
-            val substitutes = ListMap[RomanDigit, List[RomanDigit]](
-              V -> List(I, I, I, I, I),
-              X -> List(V, V),
-              L -> List(X, X, X, X, X),
-              C -> List(L, L),
-              D -> List(C, C, C, C, C),
-              M -> List(D, D))
+  def -(that: RomanNumeral): RomanNumeral = (this, that) match {
+    case (Nulla, _) => Nulla
+    case (_, Nulla) => this
+    case (RomanDigits(l), RomanDigits(r)) if this <= that => Nulla
+    case (RomanDigits(l), RomanDigits(r)) =>
+      def minusHelper(r: List[RomanDigit], s: List[RomanDigit]): RomanNumeral = {
+        val substitutes = ListMap[RomanDigit, List[RomanDigit]](
+          V -> List(I, I, I, I, I),
+          X -> List(V, V),
+          L -> List(X, X, X, X, X),
+          C -> List(L, L),
+          D -> List(C, C, C, C, C),
+          M -> List(D, D))
 
-            def findAndExpand(r: List[RomanDigit], largestRemaining: RomanDigit): List[RomanDigit] = {
-              val (largerDigits, smallerOrEqualDigits) = r.partition(_ > largestRemaining)
-              val smallestLargerDigit = largerDigits.reverse.head
-              largerDigits.init ::: substitutes.getOrElse(smallestLargerDigit, List(smallestLargerDigit)) ::: smallerOrEqualDigits
-            }
+        def findAndExpand(r: List[RomanDigit], largestRemaining: RomanDigit): List[RomanDigit] = {
+          val (largerDigits, smallerOrEqualDigits) = r.partition(_ > largestRemaining)
+          val smallestLargerDigit = largerDigits.reverse.head
+          largerDigits.init ::: substitutes.getOrElse(smallestLargerDigit, List(smallestLargerDigit)) ::: smallerOrEqualDigits
+        }
 
-            if (s.isEmpty) RomanNumeral(r)
-            else {
-              val rExpanded = findAndExpand(r, s.head)
-              minusHelper(rExpanded.diff(s), s.diff(rExpanded))
-            }
-          }
-          minusHelper(l.diff(r), r.diff(l))
+        if (s.isEmpty) RomanNumeral(r)
+        else {
+          val rExpanded = findAndExpand(r, s.head)
+          minusHelper(rExpanded.diff(s), s.diff(rExpanded))
+        }
       }
-    }
+      minusHelper(l.diff(r), r.diff(l))
   }
+
 
   def *(that: RomanNumeral) = this match {
     case Nulla => Nulla
