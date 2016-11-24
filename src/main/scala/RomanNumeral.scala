@@ -112,7 +112,7 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
 
   def /(that: RomanNumeral): RomanNumeral = this match {
     case Nulla => Nulla
-    case RomanDigits(_) => {
+    case RomanDigits(_) =>
       val numerals = List(M, D, C, L, X, V, I)
       val multiples = numerals.zip(numerals.map(x => RomanNumeral(List(x)) * that))
 
@@ -125,7 +125,6 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
         }
       }
       divideHelper(multiples, acc = List(), remainder = this)
-    }
   }
 
   def optimize: RomanNumeral = this match {
