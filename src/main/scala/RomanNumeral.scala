@@ -2,11 +2,17 @@ import scala.collection.immutable.ListMap
 
 import ExtendedList._
 
-sealed trait RomanNumeral {
+sealed trait RomanNumeral extends Ordered[RomanNumeral] {
 
   import RomanNumeral.{Nulla, RomanDigits}
 
-  def <(that: RomanNumeral): Boolean = this match {
+  def compare(that: RomanNumeral): Int = {
+    if (this == that) 0
+    else if (this < that) -1
+    else 1
+  }
+
+  override def <(that: RomanNumeral): Boolean = this match {
     case Nulla => that != Nulla
     case RomanDigits(l) => that match {
       case Nulla => false
@@ -18,12 +24,6 @@ sealed trait RomanNumeral {
         lessThanHelper(List(M, D, C, L, X, V, I), l, r, 0) < 0
     }
   }
-
-  def <=(that: RomanNumeral): Boolean = this < that || this == that
-
-  def >(that: RomanNumeral): Boolean = !(this <= that)
-
-  def >=(that: RomanNumeral): Boolean = this > that || this == that
 
   def +(that: RomanNumeral): RomanNumeral = this match {
     case Nulla => that
