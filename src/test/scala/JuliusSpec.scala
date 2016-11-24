@@ -149,9 +149,9 @@ object JuliusSpec extends Properties("Julius") {
   }
 
   property("RomanNumeral multiplying then dividing") = forAll {
-    (n: RomanNumeral, m: RomanNumeral) => {
-      if (m != RomanNumeral.Nulla) n == n * m / m
-      else true
+    (n: RomanNumeral, m: RomanNumeral) => m match {
+      case RomanNumeral.Nulla => true
+      case RomanNumeral.RomanDigits(_) => n == n * m / m
     }
   }
 
