@@ -32,7 +32,7 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
   def -(that: RomanNumeral): RomanNumeral = (this, that) match {
     case (Nulla, _) => Nulla
     case (_, Nulla) => this
-    case (RomanDigits(l), RomanDigits(r)) if this <= that => Nulla
+    case (RomanDigits(_), RomanDigits(_)) if this <= that => Nulla
     case (RomanDigits(l), RomanDigits(r)) =>
       def minusHelper(r: List[RomanDigit], s: List[RomanDigit]): RomanNumeral = {
         val substitutes = ListMap[RomanDigit, List[RomanDigit]](
