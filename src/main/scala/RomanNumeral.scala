@@ -23,12 +23,10 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
       lessThanHelper(List(M, D, C, L, X, V, I), l, r, 0)
   }
 
-  def +(that: RomanNumeral): RomanNumeral = this match {
-    case Nulla => that
-    case RomanDigits(l) => that match {
-      case Nulla => RomanNumeral(l)
-      case RomanDigits(r) => RomanNumeral(l ++ r)
-    }
+  def +(that: RomanNumeral): RomanNumeral = (this, that) match {
+    case (Nulla, _) => that
+    case (_, Nulla) => this
+    case (RomanDigits(l), RomanDigits(r)) => RomanNumeral(l ++ r)
   }
 
   def -(that: RomanNumeral): RomanNumeral = {
