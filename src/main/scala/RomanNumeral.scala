@@ -12,17 +12,15 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
     else 1
   }
 
-  override def <(that: RomanNumeral): Boolean = this match {
-    case Nulla => that != Nulla
-    case RomanDigits(l) => that match {
-      case Nulla => false
-      case RomanDigits(r) =>
-        def lessThanHelper(digits: List[RomanDigit], l: List[RomanDigit], r: List[RomanDigit], compare: Int): Boolean = {
-          if (compare != 0 || digits.isEmpty) compare < 0
-          else lessThanHelper(digits.tail, l, r, l.count(_ == digits.head).compare(r.count(_ == digits.head)))
-        }
-        lessThanHelper(List(M, D, C, L, X, V, I), l, r, 0)
-    }
+  override def <(that: RomanNumeral): Boolean = (this, that) match {
+    case (Nulla, _) => that != Nulla
+    case (_, Nulla) => false
+    case (RomanDigits(l), RomanDigits(r)) =>
+      def lessThanHelper(digits: List[RomanDigit], l: List[RomanDigit], r: List[RomanDigit], compare: Int): Boolean = {
+        if (compare != 0 || digits.isEmpty) compare < 0
+        else lessThanHelper(digits.tail, l, r, l.count(_ == digits.head).compare(r.count(_ == digits.head)))
+      }
+      lessThanHelper(List(M, D, C, L, X, V, I), l, r, 0)
   }
 
   def +(that: RomanNumeral): RomanNumeral = this match {
