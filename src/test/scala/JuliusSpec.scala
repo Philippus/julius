@@ -54,14 +54,9 @@ object JuliusSpec extends Properties("Julius") {
     (n: RomanNumeral, m: RomanNumeral, o: RomanNumeral) => (n + m) + o == n + (m + o)
   }
 
-  def checkList(l: List[RomanDigit]): Boolean = {
-    if (l.isEmpty) true
-    else {
-      l match {
-        case a :: b :: rest => (b < a || b == a) && checkList(b :: rest)
-        case _ => true
-      }
-    }
+  def checkList(l: List[RomanDigit]): Boolean = l match {
+    case a :: b :: rest => (b < a || b == a) && checkList(b :: rest)
+    case _ => true
   }
 
   property("RomanNumeral always has its digits sorted from high to low") = forAll {
