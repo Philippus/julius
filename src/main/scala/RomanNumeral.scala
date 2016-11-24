@@ -62,7 +62,7 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
   def *(that: RomanNumeral) = (this, that) match {
     case (Nulla, _) => Nulla
     case (_, Nulla) => Nulla
-    case _ =>
+    case (RomanDigits(_), RomanDigits(_)) =>
       def multiplyHelper(r: RomanNumeral, s: RomanNumeral, acc: List[(RomanNumeral, RomanNumeral)]): List[(RomanNumeral, RomanNumeral)] = {
         if (r == RomanNumeral(List(I))) acc ::: List((r, s))
         else multiplyHelper(r.halve, s.double, acc ::: List((r, s)))
