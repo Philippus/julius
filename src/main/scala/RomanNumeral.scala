@@ -149,6 +149,7 @@ object RomanNumeral {
 
   def apply(): RomanNumeral = Nulla
   def apply(l: List[RomanDigit]): RomanNumeral = {
-    if (l.isEmpty) Nulla else RomanDigits(l.sorted.reverse).optimize
+    if (l.isEmpty) Nulla
+    else RomanDigits(l.sorted.reverse).optimize
   }
 }
