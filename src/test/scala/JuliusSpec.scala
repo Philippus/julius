@@ -55,7 +55,7 @@ object JuliusSpec extends Properties("Julius") {
   }
 
   def checkList(l: List[RomanDigit]): Boolean = l match {
-    case a :: b :: rest => (b < a || b == a) && checkList(b :: rest)
+    case a :: b :: rest => (a >= b) && checkList(b :: rest)
     case _ :: Nil => true
     case Nil => true
   }
