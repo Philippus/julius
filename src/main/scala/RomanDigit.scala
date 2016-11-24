@@ -1,8 +1,8 @@
 sealed trait RomanDigit extends Ordered[RomanDigit] with Product with Serializable {
-  def compare(that: RomanDigit) = {
+  def compare(that: RomanDigit): Int = {
     if (this == that) 0
-    else if (this < that) 1
-    else -1
+    else if (this < that) -1
+    else 1
   }
 
   override def <(that: RomanDigit): Boolean = that match {
@@ -14,12 +14,6 @@ sealed trait RomanDigit extends Ordered[RomanDigit] with Product with Serializab
     case D => this <= C
     case M => this <= D
   }
-
-  override def <=(that: RomanDigit): Boolean = this < that || this == that
-
-  override def >(that: RomanDigit): Boolean = !(this <= that)
-
-  override def >=(that: RomanDigit): Boolean = this > that || this == that
 }
 
 case object I extends RomanDigit
