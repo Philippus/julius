@@ -160,6 +160,13 @@ object JuliusSpec extends Properties("Julius") {
     (n: RomanNumeral, m: RomanNumeral, o: RomanNumeral) => (m - o) * n == (m * n) - (o * n)
   }
 
+  property("RomanNumeral multiplying then dividing") = forAll {
+    (n: RomanNumeral, m: RomanNumeral) => {
+      if (m != RomanNumeral.Nulla) n == n * m / m
+      else true
+    }
+  }
+
   property("adding RomanNumerals and then converting to int is the same as converting to int and then adding") = forAll {
     (n: RomanNumeral, m: RomanNumeral) => (n + m).toInt == n.toInt + m.toInt
   }
