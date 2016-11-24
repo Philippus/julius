@@ -128,7 +128,7 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
   }
 
   def optimize: RomanNumeral = this match {
-    case Nulla => this
+    case Nulla => Nulla
     case RomanDigits(l) =>
       val substitutes = ListMap[List[RomanDigit], List[RomanDigit]](
         List(I, I, I, I, I) -> List(V),
