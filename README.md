@@ -6,7 +6,7 @@ It was started to get more comfortable with functional programming, Scala and pr
 
 It aims to:
 - provide a pleasant API to the users of the library.
-- implement algorithms for the basic operations of addition, subtraction, multiplication and division.
+- provide the basic operations of addition, subtraction, multiplication and division.
 - do as the romans do: the implemented algorithms are only allowed to manipulate the roman symbols directly, so no converting back and forth from integers.
 - use idiomatic Scala
 - use functional style of programming
