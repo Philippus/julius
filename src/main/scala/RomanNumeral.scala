@@ -6,6 +6,24 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
 
   import RomanNumeral.{Nulla, RomanDigits}
 
+  override def toString: String = this match {
+    case Nulla => "nulla"
+    case RomanDigits(l) =>
+      val substitutes = ListMap[List[RomanDigit], List[RomanDigit]](
+        List(D, C, C, C, C) -> List(C, M),
+        List(C, C, C, C) -> List(C, D),
+        List(L, X, X, X, X) -> List(X, C),
+        List(X, X, X, X) -> List(X, L),
+        List(V, I, I, I, I) -> List(I, X),
+        List(I, I, I, I) -> List(I, V)
+      )
+      var compactedList = l
+      for ((trg, rpl) <- substitutes) {
+        compactedList = compactedList.replaceSlice(trg, rpl)
+      }
+      compactedList.mkString
+  }
+
   def compare(that: RomanNumeral): Int = {
     if (this == that) 0
     else if (this < that) -1
