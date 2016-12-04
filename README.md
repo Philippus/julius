@@ -25,4 +25,4 @@ Scala related references:
 
 License
 =======
-The code is available under the MIT license.
+The code is available under the [MIT license](LICENSE.md).
