@@ -28,6 +28,23 @@ object JuliusImplicits {
     }
   }
 
+  implicit class IntToRomanNumeral(i: Int) {
+    def toRomanNumeral: RomanNumeral = {
+      def intToRomanNumeralHelper(digits: List[RomanDigit], acc: List[RomanDigit], remainder: Int): RomanNumeral = {
+        if (digits.isEmpty || remainder == 0) RomanNumeral(acc)
+        else {
+          val digit = digits.head
+          if (digit.toInt <= remainder) {
+            intToRomanNumeralHelper(digits, acc ++ List(digit), remainder - digit.toInt)
+          } else {
+            intToRomanNumeralHelper(digits.tail, acc, remainder)
+          }
+        }
+      }
+      intToRomanNumeralHelper(digits = List(M, D, C, L, X, V, I), acc = List(), remainder = i)
+    }
+  }
+
   implicit class StringToRomanNumeral(s: String) {
     implicit def charToRomanDigit(c: Char): Option[RomanDigit] = {
       c match {
