@@ -12,6 +12,8 @@ It aims to:
 - use functional style of programming
 - use property based testing with ScalaCheck
 
+[![Build Status](https://travis-ci.org/Philippus/julius.svg?branch=master)](https://travis-ci.org/Philippus/julius)
+
 Links
 =====
 Roman Numerals:
