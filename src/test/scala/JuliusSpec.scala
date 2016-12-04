@@ -18,6 +18,10 @@ object JuliusSpec extends Properties("Julius") {
     x <- listOf(genRomanDigit)
   } yield RomanNumeral(x)
 
+  def genStringOfRomanDigits: Gen[String] = for {
+    x <- listOf(genRomanDigit)
+  } yield x.mkString
+
   implicit val arbitraryRomanNumeral: Arbitrary[RomanNumeral] = Arbitrary(genRomanNumeral)
 
   property("RomanDigit.generator only generates roman digits") = forAll {
@@ -78,6 +82,10 @@ object JuliusSpec extends Properties("Julius") {
         !(l containsSlice List(C, C, C, C, C)) &&
         !(l containsSlice List(D, D))
     }
+  }
+
+  property("RomanNumeral is optimized after creation") = forAll {
+    (n: RomanNumeral) => n == n.optimize
   }
 
   property("RomanDigit can be added to another") = forAll {
@@ -193,5 +201,13 @@ object JuliusSpec extends Properties("Julius") {
 
   property("RomanNumeral to Int and back") = forAll {
     (n: RomanNumeral) => n == n.toInt.toRomanNumeral
+  }
+
+  property("RomanNumeral created from Roman Digits is validated") = forAll(genStringOfRomanDigits) {
+    (s: String) => s.toRomanNumeral.isEmpty || s.toRomanNumeral.nonEmpty
+  }
+
+  property("RomanNumeral created from String is validated") = forAll {
+    (s: String) => s.toRomanNumeral.isEmpty || s.toRomanNumeral.nonEmpty
   }
 }
