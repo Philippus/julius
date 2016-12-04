@@ -186,4 +186,12 @@ object JuliusSpec extends Properties("Julius") {
   property("RomanNumeral comparison: >=") = forAll {
     (n: RomanNumeral, m: RomanNumeral) => (n >= m) == (n.toInt >= m.toInt)
   }
+
+  property("RomanNumeral to String and back") = forAll {
+    (n: RomanNumeral) => n == n.toString.toRomanNumeral.getOrElse(false)
+  }
+
+  property("RomanNumeral to Int and back") = forAll {
+    (n: RomanNumeral) => n == n.toInt.toRomanNumeral
+  }
 }
