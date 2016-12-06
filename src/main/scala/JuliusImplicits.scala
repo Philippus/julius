@@ -58,7 +58,7 @@ object JuliusImplicits {
       case _ => None
     }
 
-    def uncompact(l: List[RomanDigit]) = {
+    def uncompact(l: List[RomanDigit]): List[RomanDigit] = {
       val substitutes = ListMap[List[RomanDigit], List[RomanDigit]](
         List(I, V) -> List(I, I, I, I),
         List(I, X) -> List(V, I, I, I, I),
