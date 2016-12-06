@@ -1,3 +1,5 @@
+import scala.language.implicitConversions
+
 object ExtendedList {
   implicit def listToListWithReplaceSlice[A](l: List[A]): ListWithReplaceSlice[A] = new ListWithReplaceSlice(l)
 
