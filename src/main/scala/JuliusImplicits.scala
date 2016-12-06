@@ -1,4 +1,5 @@
 import scala.collection.immutable.ListMap
+import scala.language.implicitConversions
 
 import ExtendedList._
 
@@ -46,20 +47,18 @@ object JuliusImplicits {
   }
 
   implicit class StringToRomanNumeral(s: String) {
-    implicit def charToRomanDigit(c: Char): Option[RomanDigit] = {
-      c match {
-        case 'I' => Option(I)
-        case 'V' => Option(V)
-        case 'X' => Option(X)
-        case 'L' => Option(L)
-        case 'C' => Option(C)
-        case 'D' => Option(D)
-        case 'M' => Option(M)
-        case _ => None
-      }
+    implicit def charToRomanDigit(c: Char): Option[RomanDigit] = c match {
+      case 'I' => Option(I)
+      case 'V' => Option(V)
+      case 'X' => Option(X)
+      case 'L' => Option(L)
+      case 'C' => Option(C)
+      case 'D' => Option(D)
+      case 'M' => Option(M)
+      case _ => None
     }
 
-    def uncompact(l: List[RomanDigit]) = {
+    def uncompact(l: List[RomanDigit]): List[RomanDigit] = {
       val substitutes = ListMap[List[RomanDigit], List[RomanDigit]](
         List(I, V) -> List(I, I, I, I),
         List(I, X) -> List(V, I, I, I, I),
@@ -67,11 +66,7 @@ object JuliusImplicits {
         List(X, C) -> List(L, X, X, X, X),
         List(C, D) -> List(C, C, C, C),
         List(C, M) -> List(D, C, C, C, C))
-      var uncompactedList = l
-      for ((trg, rpl) <- substitutes) {
-        uncompactedList = uncompactedList.replaceSlice(trg, rpl)
-      }
-      uncompactedList
+      l.substitute(substitutes)
     }
 
     def validMs(l: List[RomanDigit]): Boolean = l match {

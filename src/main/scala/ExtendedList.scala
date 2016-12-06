@@ -1,3 +1,6 @@
+import scala.collection.immutable.ListMap
+import scala.language.implicitConversions
+
 object ExtendedList {
   implicit def listToListWithReplaceSlice[A](l: List[A]): ListWithReplaceSlice[A] = new ListWithReplaceSlice(l)
 
@@ -8,6 +11,11 @@ object ExtendedList {
         left ::: replacement ::: right.drop(target.length).replaceSlice(target, replacement)
       }
       else source
+    }
+
+    def substitute(substitutes: ListMap[List[A], List[A]]): List[A] = {
+      if (substitutes.isEmpty) source
+      else source.replaceSlice(substitutes.head._1, substitutes.head._2).substitute(substitutes.tail)
     }
   }
 }

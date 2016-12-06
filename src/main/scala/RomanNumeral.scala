@@ -17,11 +17,7 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
         List(V, I, I, I, I) -> List(I, X),
         List(I, I, I, I) -> List(I, V)
       )
-      var compactedList = l
-      for ((trg, rpl) <- substitutes) {
-        compactedList = compactedList.replaceSlice(trg, rpl)
-      }
-      compactedList.mkString
+      l.substitute(substitutes).mkString
   }
 
   def compare(that: RomanNumeral): Int = {
@@ -76,7 +72,7 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
       minusHelper(l.diff(r), r.diff(l))
   }
 
-  def *(that: RomanNumeral) = (this, that) match {
+  def *(that: RomanNumeral): RomanNumeral = (this, that) match {
     case (Nulla, _) => Nulla
     case (_, Nulla) => Nulla
     case (RomanDigits(_), RomanDigits(_)) =>
@@ -153,11 +149,7 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
         List(C, C, C, C, C) -> List(D),
         List(D, D) -> List(M)
       )
-      var optimizedList = l
-      for ((trg, rpl) <- substitutes) {
-        optimizedList = optimizedList.replaceSlice(trg, rpl)
-      }
-      RomanDigits(optimizedList)
+      RomanDigits(l.substitute(substitutes))
   }
 }
 

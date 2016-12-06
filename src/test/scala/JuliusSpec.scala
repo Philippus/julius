@@ -1,7 +1,10 @@
 import org.scalacheck.Gen._
-import org.scalacheck.{Arbitrary, Gen, Properties}
+import org.scalacheck.{Arbitrary, Gen, Properties, Shrink}
 import org.scalacheck.Prop.forAll
+import org.scalacheck.Shrink.shrink
 import JuliusImplicits._
+
+import scala.collection.immutable.Stream
 
 object JuliusSpec extends Properties("Julius") {
   def genRomanDigit: Gen[RomanDigit] = oneOf(List(M, D, C, L, X, V, I))
@@ -23,6 +26,11 @@ object JuliusSpec extends Properties("Julius") {
   } yield x.mkString
 
   implicit val arbitraryRomanNumeral: Arbitrary[RomanNumeral] = Arbitrary(genRomanNumeral)
+
+  implicit val shrinkRomanNumeral: Shrink[RomanNumeral] = Shrink {
+    case RomanNumeral.Nulla => Stream.empty
+    case RomanNumeral.RomanDigits(l) => shrink(l).map(RomanNumeral.apply)
+  }
 
   property("RomanDigit.generator only generates roman digits") = forAll {
     r: RomanDigit => r match {
