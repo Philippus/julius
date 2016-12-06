@@ -47,17 +47,15 @@ object JuliusImplicits {
   }
 
   implicit class StringToRomanNumeral(s: String) {
-    implicit def charToRomanDigit(c: Char): Option[RomanDigit] = {
-      c match {
-        case 'I' => Option(I)
-        case 'V' => Option(V)
-        case 'X' => Option(X)
-        case 'L' => Option(L)
-        case 'C' => Option(C)
-        case 'D' => Option(D)
-        case 'M' => Option(M)
-        case _ => None
-      }
+    implicit def charToRomanDigit(c: Char): Option[RomanDigit] = c match {
+      case 'I' => Option(I)
+      case 'V' => Option(V)
+      case 'X' => Option(X)
+      case 'L' => Option(L)
+      case 'C' => Option(C)
+      case 'D' => Option(D)
+      case 'M' => Option(M)
+      case _ => None
     }
 
     def uncompact(l: List[RomanDigit]) = {
