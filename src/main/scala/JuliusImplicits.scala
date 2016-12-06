@@ -1,4 +1,5 @@
 import scala.collection.immutable.ListMap
+import scala.language.implicitConversions
 
 import ExtendedList._
 
