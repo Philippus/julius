@@ -76,7 +76,7 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
       minusHelper(l.diff(r), r.diff(l))
   }
 
-  def *(that: RomanNumeral) = (this, that) match {
+  def *(that: RomanNumeral): RomanNumeral = (this, that) match {
     case (Nulla, _) => Nulla
     case (_, Nulla) => Nulla
     case (RomanDigits(_), RomanDigits(_)) =>
