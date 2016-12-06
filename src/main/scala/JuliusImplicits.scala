@@ -66,11 +66,7 @@ object JuliusImplicits {
         List(X, C) -> List(L, X, X, X, X),
         List(C, D) -> List(C, C, C, C),
         List(C, M) -> List(D, C, C, C, C))
-      var uncompactedList = l
-      for ((trg, rpl) <- substitutes) {
-        uncompactedList = uncompactedList.replaceSlice(trg, rpl)
-      }
-      uncompactedList
+      l.substitute(substitutes)
     }
 
     def validMs(l: List[RomanDigit]): Boolean = l match {
