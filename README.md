@@ -1,7 +1,7 @@
 Julius - Roman Numerals
 =======================
 
-This is a library for working with Roman Numerals in Scala.
+Julius is a library for working with Roman Numerals in Scala.
 It was started to get more comfortable with functional programming, Scala and property based testing.
 
 It aims to:
