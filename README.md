@@ -20,32 +20,40 @@ There are several ways to construct a Roman Numeral.
 
 Directly, by supplying a `List[RomanDigit]`. This list is treated as an unordered collection of Roman Digits.
 
-`scala> RomanNumeral(List(X, I, I, I))
- res0: RomanNumeral = XIII`
+```
+scala> RomanNumeral(List(X, I, I, I))
+res0: RomanNumeral = XIII
+```
 
 After importing `JuliusImplicits._` the following ways are available:
 Using the method `toRomanNumeral` on `String` which will result in an `Option[RomanNumeral]`.
 Note that this method expects compacted Roman Numerals (f.e. IV instead of IIII).
 
-`scala> import JuliusImplicits._
- import JuliusImplicits._
- scala> "XIV".toRomanNumeral
- res1: Option[RomanNumeral] = Some(XIV)`
+```
+scala> import JuliusImplicits._
+import JuliusImplicits._
+scala> "XIV".toRomanNumeral
+res1: Option[RomanNumeral] = Some(XIV)
+```
 
 Using the method `toRomanNumeral` on `Int`:
 
-`scala> 1666.toRomanNumeral
-res0: RomanNumeral = MDCLXVI`
+```
+scala> 1666.toRomanNumeral
+res0: RomanNumeral = MDCLXVI
+```
 
 ## Nulla
 The special value `Nulla` (zero) can also be constructed similarly:
 
-`scala> RomanNumeral()
- res3: RomanNumeral = nulla
- scala> "nulla".toRomanNumeral
- res4: Option[RomanNumeral] = Some(nulla)
- scala> 0.toRomanNumeral
- res5: RomanNumeral = nulla`
+```
+scala> RomanNumeral()
+res3: RomanNumeral = nulla
+scala> "nulla".toRomanNumeral
+res4: Option[RomanNumeral] = Some(nulla)
+scala> 0.toRomanNumeral
+res5: RomanNumeral = nulla
+```
 
 ## Usage
 Julius makes the `+`, `-`, `*` and `/` operators available for Roman Numerals.
