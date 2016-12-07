@@ -25,7 +25,7 @@ object JuliusSpec extends Properties("Julius") {
     x <- listOf(genRomanDigit)
   } yield x.mkString
 
-  implicit val arbitraryRomanNumeral: Arbitrary[RomanNumeral] = Arbitrary(genRomanNumeral)
+  implicit val arbitraryRomanNumeral: Arbitrary[RomanNumeral] = Arbitrary(genLimitedRomanNumeral)
 
   implicit val shrinkRomanNumeral: Shrink[RomanNumeral] = Shrink {
     case RomanNumeral.Nulla => Stream.empty
