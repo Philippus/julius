@@ -25,6 +25,7 @@ RomanNumeral(List(X, I, I, I))
 ```
 
 After importing `JuliusImplicits._` the following ways are available:
+
 Using the method `toRomanNumeral` on `String` which will result in an `Option[RomanNumeral]`.
 Note that this method expects compacted Roman Numerals (f.e. IV instead of IIII).
 
