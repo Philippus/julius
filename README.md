@@ -26,18 +26,13 @@ RomanNumeral(List(X, I, I, I))
 
 After importing `JuliusImplicits._` the following ways are available:
 
-Using the method `toRomanNumeral` on `String` which will result in an `Option[RomanNumeral]`.
-Note that this method expects compacted Roman Numerals (f.e. IV instead of IIII).
+Using the method `toRomanNumeral` on `Int` (resulting in a `RomanNumeral`) or `String` which will result in an `Option[RomanNumeral]`.
+Note that this last method expects compacted Roman Numerals (f.e. IV instead of IIII).
 
 ```scala
 import JuliusImplicits._
-"XIV".toRomanNumeral
-```
-
-Using the method `toRomanNumeral` on `Int`:
-
-```scala
 1666.toRomanNumeral
+"XIV".toRomanNumeral
 ```
 
 ## Nulla
@@ -45,6 +40,7 @@ The special value `Nulla` (zero) can also be constructed similarly:
 
 ```scala
 RomanNumeral()
+import JuliusImplicits._
 "nulla".toRomanNumeral
 0.toRomanNumeral
 ```
