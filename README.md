@@ -20,39 +20,32 @@ There are several ways to construct a Roman Numeral.
 
 Directly, by supplying a `List[RomanDigit]`. This list is treated as an unordered collection of Roman Digits.
 
-```
-scala> RomanNumeral(List(X, I, I, I))
-res0: RomanNumeral = XIII
+```scala
+RomanNumeral(List(X, I, I, I))
 ```
 
 After importing `JuliusImplicits._` the following ways are available:
 Using the method `toRomanNumeral` on `String` which will result in an `Option[RomanNumeral]`.
 Note that this method expects compacted Roman Numerals (f.e. IV instead of IIII).
 
-```
-scala> import JuliusImplicits._
+```scala
 import JuliusImplicits._
-scala> "XIV".toRomanNumeral
-res1: Option[RomanNumeral] = Some(XIV)
+"XIV".toRomanNumeral
 ```
 
 Using the method `toRomanNumeral` on `Int`:
 
-```
-scala> 1666.toRomanNumeral
-res0: RomanNumeral = MDCLXVI
+```scala
+1666.toRomanNumeral
 ```
 
 ## Nulla
 The special value `Nulla` (zero) can also be constructed similarly:
 
-```
-scala> RomanNumeral()
-res3: RomanNumeral = nulla
-scala> "nulla".toRomanNumeral
-res4: Option[RomanNumeral] = Some(nulla)
-scala> 0.toRomanNumeral
-res5: RomanNumeral = nulla
+```scala
+RomanNumeral()
+"nulla".toRomanNumeral
+0.toRomanNumeral
 ```
 
 ## Usage
