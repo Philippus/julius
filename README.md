@@ -15,8 +15,7 @@ It aims to:
 [![Build Status](https://travis-ci.org/Philippus/julius.svg?branch=master)](https://travis-ci.org/Philippus/julius)
 [![codecov](https://codecov.io/gh/Philippus/julius/branch/master/graph/badge.svg)](https://codecov.io/gh/Philippus/julius)
 
-Links
-=====
+## Links
 Roman Numerals:
 - General information - https://en.wikipedia.org/wiki/Roman_numerals
 - Algorithms - http://turner.faculty.swau.edu/mathematics/materialslibrary/roman/
@@ -26,6 +25,5 @@ Scala related references:
 - ScalaCheck - https://scalacheck.org/
 - Sealed traits - http://underscore.io/blog/posts/2015/06/02/everything-about-sealed.html
 
-License
-=======
+## License
 The code is available under the [MIT license](LICENSE.md).
