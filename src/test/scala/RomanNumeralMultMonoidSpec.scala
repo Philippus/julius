@@ -13,7 +13,7 @@ object RomanNumeralMultMonoidSpec extends Properties("Ordered monoid under multi
     }
   }
   def arb[A: Arbitrary]: Arbitrary[A] = implicitly[Arbitrary[A]]
-  implicit val DoubleMultiplicationArbitrary: Arbitrary[RomanNumeral @@ Multiplication] = Tag.subst(arb[RomanNumeral])
+  implicit val RomanNumeralMultiplicationArbitrary: Arbitrary[RomanNumeral @@ Multiplication] = Tag.subst(arb[RomanNumeral])
 
   checkAll("equal laws", equal.laws[RomanNumeral @@ Tags.Multiplication])
   checkAll("order laws", order.laws[RomanNumeral @@ Tags.Multiplication])
