@@ -158,7 +158,7 @@ object RomanNumeral {
   case object Nulla extends RomanNumeral
   final case class RomanDigits(l: List[RomanDigit]) extends RomanNumeral
 
-  def apply(): RomanNumeral = Nulla
+  def apply(): RomanNumeral = RomanNumeral(List())
   def apply(r: RomanDigit): RomanNumeral = RomanNumeral(List(r))
   def apply(l: List[RomanDigit]): RomanNumeral = {
     if (l.isEmpty) Nulla
