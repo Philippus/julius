@@ -9,6 +9,18 @@ object JuliusImplicits {
 
     def +(that: RomanNumeral): RomanNumeral = RomanNumeral(List(r)) + that
 
+    def *(that: RomanDigit): RomanNumeral = RomanNumeral(List(r)) * RomanNumeral(List(that))
+
+    def *(that: RomanNumeral): RomanNumeral = RomanNumeral(List(r)) * that
+
+    def -(that: RomanDigit): RomanNumeral = RomanNumeral(List(r)) - RomanNumeral(List(that))
+
+    def -(that: RomanNumeral): RomanNumeral = RomanNumeral(List(r)) - that
+
+    def /(that: RomanDigit): RomanNumeral = RomanNumeral(List(r)) / RomanNumeral(List(that))
+
+    def /(that: RomanNumeral): RomanNumeral = RomanNumeral(List(r)) / that
+
     def toInt: Int = r match {
       case I => 1
       case V => 5
@@ -22,6 +34,12 @@ object JuliusImplicits {
 
   implicit class RomanNumeralToInt(n: RomanNumeral) {
     def +(that: RomanDigit): RomanNumeral = n + RomanNumeral(List(that))
+
+    def *(that: RomanDigit): RomanNumeral = n * RomanNumeral(List(that))
+
+    def -(that: RomanDigit): RomanNumeral = n - RomanNumeral(List(that))
+
+    def /(that: RomanDigit): RomanNumeral = n / RomanNumeral(List(that))
 
     def toInt: Int = n match {
       case RomanNumeral.Nulla => 0
