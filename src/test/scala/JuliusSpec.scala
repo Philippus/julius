@@ -180,7 +180,7 @@ object JuliusSpec extends Properties("Julius") {
     }
   }
 
-  property("RomanNumeral vision by Nulla result in ArithmeticException") = forAll {
+  property("RomanNumeral division by Nulla results in ArithmeticException") = forAll {
     (n: RomanNumeral) => Prop.throws(classOf[ArithmeticException]) { n / RomanNumeral.Nulla }
   }
 
