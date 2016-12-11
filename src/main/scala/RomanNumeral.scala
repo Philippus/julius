@@ -77,7 +77,7 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
     case (_, Nulla) => Nulla
     case (RomanDigits(_), RomanDigits(_)) =>
       def multiplyHelper(r: RomanNumeral, s: RomanNumeral, acc: List[(RomanNumeral, RomanNumeral)]): List[(RomanNumeral, RomanNumeral)] = {
-        if (r == RomanNumeral(List(I))) acc ::: List((r, s))
+        if (r == RomanNumeral(I)) acc ::: List((r, s))
         else multiplyHelper(r.halve, s.double, acc ::: List((r, s)))
       }
       multiplyHelper(this, that, acc = List())
@@ -126,7 +126,7 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
     case (Nulla, _) => Nulla
     case (RomanDigits(_), RomanDigits(_)) =>
       val digits = List(M, D, C, L, X, V, I)
-      val multiplicationTable = digits.zip(digits.map(x => RomanNumeral(List(x)) * that))
+      val multiplicationTable = digits.zip(digits.map(x => RomanNumeral(x) * that))
 
       def divideHelper(multiplicationTable: List[(RomanDigit, RomanNumeral)], acc: List[RomanDigit], remainder: RomanNumeral): RomanNumeral = {
         if (multiplicationTable.isEmpty) RomanNumeral(acc)
@@ -159,6 +159,7 @@ object RomanNumeral {
   final case class RomanDigits(l: List[RomanDigit]) extends RomanNumeral
 
   def apply(): RomanNumeral = Nulla
+  def apply(r: RomanDigit): RomanNumeral = RomanNumeral(List(r))
   def apply(l: List[RomanDigit]): RomanNumeral = {
     if (l.isEmpty) Nulla
     else RomanDigits(l.sorted.reverse).optimize
