@@ -26,7 +26,7 @@ Using the method `toRomanNumeral` on `Int` (resulting in a `RomanNumeral`) or `S
 Note that this last method expects compacted Roman Numerals (f.e. IV instead of IIII).
 
 ```scala
-RomanNumeral(List(X, I, I, I)) // res0: RomanNumeral = XIII
+RomanNumeral(List(I, I, X, I)) // res0: RomanNumeral = XIII
 import JuliusImplicits._
 1666.toRomanNumeral // res1: RomanNumeral = MDCLXVI
 "XIV".toRomanNumeral // res2: Option[RomanNumeral] = Some(XIV)
