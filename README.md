@@ -18,11 +18,7 @@ It aims to:
 ## Constructing a Roman Numeral
 There are several ways to construct a Roman Numeral.
 
-Directly, by supplying a `List[RomanDigit]`. This list is treated as an unordered collection of Roman Digits.
-
-```scala
-RomanNumeral(List(X, I, I, I))
-```
+Directly, by supplying a `List[RomanDigit]` to `RomanNumeral()`. This list is treated as an unordered collection of Roman Digits.
 
 After importing `JuliusImplicits._` the following ways are available:
 
@@ -30,19 +26,20 @@ Using the method `toRomanNumeral` on `Int` (resulting in a `RomanNumeral`) or `S
 Note that this last method expects compacted Roman Numerals (f.e. IV instead of IIII).
 
 ```scala
+RomanNumeral(List(X, I, I, I)) // res0: RomanNumeral = XIII
 import JuliusImplicits._
-1666.toRomanNumeral
-"XIV".toRomanNumeral
+1666.toRomanNumeral // res1: RomanNumeral = MDCLXVI
+"XIV".toRomanNumeral // res2: Option[RomanNumeral] = Some(XIV)
 ```
 
 ## Nulla
 The special value `Nulla` (zero) can also be constructed similarly:
 
 ```scala
-RomanNumeral()
+RomanNumeral() // res3: RomanNumeral = nulla
 import JuliusImplicits._
-0.toRomanNumeral
-"nulla".toRomanNumeral
+0.toRomanNumeral // res4: RomanNumeral = nulla
+"nulla".toRomanNumeral // res5: Option[RomanNumeral] = Some(nulla)
 ```
 
 ## Usage
