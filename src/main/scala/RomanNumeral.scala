@@ -122,7 +122,7 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
   }
 
   def /(that: RomanNumeral): RomanNumeral = (this, that) match {
-    case (_, Nulla) => throw new ArithmeticException("/ by Nulla")
+    case (_, Nulla) => throw new ArithmeticException("/ by nulla")
     case (Nulla, _) => Nulla
     case (RomanDigits(_), RomanDigits(_)) =>
       val digits = List(M, D, C, L, X, V, I)
