@@ -1,5 +1,5 @@
 import org.scalacheck.Gen._
-import org.scalacheck.{Arbitrary, Gen, Properties, Shrink}
+import org.scalacheck._
 import org.scalacheck.Prop.forAll
 import org.scalacheck.Shrink.shrink
 import JuliusImplicits._
@@ -18,7 +18,7 @@ object JuliusSpec extends Properties("Julius") {
   def genNulla: Gen[RomanNumeral] = RomanNumeral()
 
   def genRomanDigits: Gen[RomanNumeral] = for {
-    x <- listOf(genRomanDigit)
+    x <- nonEmptyListOf(genRomanDigit)
   } yield RomanNumeral(x)
 
   def genStringOfRomanDigits: Gen[String] = for {
@@ -117,6 +117,73 @@ object JuliusSpec extends Properties("Julius") {
     }
   }
 
+  property("RomanDigit can be multiplied by another") = forAll {
+    (r: RomanDigit, s: RomanDigit) => r * s match {
+      case RomanNumeral.Nulla => true
+      case RomanNumeral.RomanDigits(_) => true
+    }
+  }
+
+  property("RomanNumeral can be multiplied by a RomanDigit") = forAll {
+    (n: RomanNumeral, r: RomanDigit) => n * r match {
+      case RomanNumeral.Nulla => true
+      case RomanNumeral.RomanDigits(_) => true
+    }
+  }
+
+  property("RomanDigit can be multiplied by a RomanNumeral") = forAll {
+    (r: RomanDigit, n: RomanNumeral) => r * n match {
+      case RomanNumeral.Nulla => true
+      case RomanNumeral.RomanDigits(_) => true
+    }
+  }
+
+  property("RomanDigit can be subtracted from another") = forAll {
+    (r: RomanDigit, s: RomanDigit) => r - s match {
+      case RomanNumeral.Nulla => true
+      case RomanNumeral.RomanDigits(_) => true
+    }
+  }
+
+  property("RomanDigit can be subtracted from a RomanNumeral") = forAll {
+    (n: RomanNumeral, r: RomanDigit) => n - r match {
+      case RomanNumeral.Nulla => true
+      case RomanNumeral.RomanDigits(_) => true
+    }
+  }
+
+  property("RomanNumeral can be subtracted from a RomanDigit") = forAll {
+    (r: RomanDigit, n: RomanNumeral) => r - n match {
+      case RomanNumeral.Nulla => true
+      case RomanNumeral.RomanDigits(_) => true
+    }
+  }
+
+  property("RomanDigit can be divided by another") = forAll {
+    (r: RomanDigit, s: RomanDigit) => r / s match {
+      case RomanNumeral.Nulla => true
+      case RomanNumeral.RomanDigits(_) => true
+    }
+  }
+
+  property("RomanNumeral can be divided by a RomanDigit") = forAll {
+    (n: RomanNumeral, r: RomanDigit) => n / r match {
+      case RomanNumeral.Nulla => true
+      case RomanNumeral.RomanDigits(_) => true
+    }
+  }
+
+  property("RomanDigit can be divided by a RomanNumeral") = forAll(genRomanDigit, genRomanDigits) {
+    (r: RomanDigit, n: RomanNumeral) => r / n match {
+      case RomanNumeral.Nulla => true
+      case RomanNumeral.RomanDigits(_) => true
+    }
+  }
+
+  property("RomanNumeral vision by Nulla result in ArithmeticException") = forAll {
+    (n: RomanNumeral) => Prop.throws(classOf[ArithmeticException]) { n / RomanNumeral.Nulla }
+  }
+
   property("RomanNumeral isOdd") = forAll {
     (n: RomanNumeral) => n.isOdd == (n.toInt % 2 != 0)
   }
@@ -163,7 +230,7 @@ object JuliusSpec extends Properties("Julius") {
   property("RomanNumeral multiplying then dividing") = forAll {
     (n: RomanNumeral, m: RomanNumeral) => m match {
       case RomanNumeral.Nulla => true
-      case RomanNumeral.RomanDigits(_) => n == n * m / m
+      case RomanNumeral.RomanDigits(_) => n == (n * m) / m
     }
   }
 
