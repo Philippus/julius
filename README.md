@@ -41,8 +41,8 @@ The special value `Nulla` (zero) can also be constructed similarly:
 ```scala
 RomanNumeral()
 import JuliusImplicits._
-"nulla".toRomanNumeral
 0.toRomanNumeral
+"nulla".toRomanNumeral
 ```
 
 ## Usage
