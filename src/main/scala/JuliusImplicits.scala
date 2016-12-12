@@ -7,19 +7,19 @@ object JuliusImplicits {
   implicit class RomanDigitToInt(r: RomanDigit) {
     def +(that: RomanDigit): RomanNumeral = RomanNumeral(List(r, that))
 
-    def +(that: RomanNumeral): RomanNumeral = RomanNumeral(List(r)) + that
+    def +(that: RomanNumeral): RomanNumeral = RomanNumeral(r) + that
 
-    def *(that: RomanDigit): RomanNumeral = RomanNumeral(List(r)) * RomanNumeral(List(that))
+    def *(that: RomanDigit): RomanNumeral = RomanNumeral(r) * RomanNumeral(that)
 
-    def *(that: RomanNumeral): RomanNumeral = RomanNumeral(List(r)) * that
+    def *(that: RomanNumeral): RomanNumeral = RomanNumeral(r) * that
 
-    def -(that: RomanDigit): RomanNumeral = RomanNumeral(List(r)) - RomanNumeral(List(that))
+    def -(that: RomanDigit): RomanNumeral = RomanNumeral(r) - RomanNumeral(that)
 
-    def -(that: RomanNumeral): RomanNumeral = RomanNumeral(List(r)) - that
+    def -(that: RomanNumeral): RomanNumeral = RomanNumeral(r) - that
 
-    def /(that: RomanDigit): RomanNumeral = RomanNumeral(List(r)) / RomanNumeral(List(that))
+    def /(that: RomanDigit): RomanNumeral = RomanNumeral(r) / RomanNumeral(that)
 
-    def /(that: RomanNumeral): RomanNumeral = RomanNumeral(List(r)) / that
+    def /(that: RomanNumeral): RomanNumeral = RomanNumeral(r) / that
 
     def toInt: Int = r match {
       case I => 1
@@ -33,13 +33,13 @@ object JuliusImplicits {
   }
 
   implicit class RomanNumeralToInt(n: RomanNumeral) {
-    def +(that: RomanDigit): RomanNumeral = n + RomanNumeral(List(that))
+    def +(that: RomanDigit): RomanNumeral = n + RomanNumeral(that)
 
-    def *(that: RomanDigit): RomanNumeral = n * RomanNumeral(List(that))
+    def *(that: RomanDigit): RomanNumeral = n * RomanNumeral(that)
 
-    def -(that: RomanDigit): RomanNumeral = n - RomanNumeral(List(that))
+    def -(that: RomanDigit): RomanNumeral = n - RomanNumeral(that)
 
-    def /(that: RomanDigit): RomanNumeral = n / RomanNumeral(List(that))
+    def /(that: RomanDigit): RomanNumeral = n / RomanNumeral(that)
 
     def toInt: Int = n match {
       case RomanNumeral.Nulla => 0
