@@ -18,7 +18,7 @@ object JuliusSpec extends Properties("Julius") {
   def genNulla: Gen[RomanNumeral] = RomanNumeral()
 
   def genRomanDigits: Gen[RomanNumeral] = for {
-    x <- listOf(genRomanDigit)
+    x <- nonEmptyListOf(genRomanDigit)
   } yield RomanNumeral(x)
 
   def genStringOfRomanDigits: Gen[String] = for {
