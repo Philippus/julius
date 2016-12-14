@@ -7,7 +7,8 @@ It was started to get more comfortable with functional programming, Scala and pr
 It aims to:
 - provide a pleasant API to the users of the library.
 - provide the basic operations of addition, subtraction, multiplication and division.
-- do as the romans do: the implemented algorithms are only allowed to manipulate the roman symbols directly, so no converting back and forth from integers.
+- do as the romans do: the implemented algorithms are only allowed to manipulate the roman symbols directly, so no
+converting back and forth from integers.
 - use idiomatic Scala
 - use functional style of programming
 - use property based testing with ScalaCheck
@@ -18,11 +19,13 @@ It aims to:
 ## Constructing a Roman Numeral
 There are several ways to construct a Roman Numeral.
 
-Directly, by supplying a `List[RomanDigit]` to `RomanNumeral()`. This list is treated as an unordered collection of Roman Digits.
+Directly, by supplying a `List[RomanDigit]` to `RomanNumeral()`. This list is treated as an unordered collection of
+Roman Digits.
 
 After importing `JuliusImplicits._` the following ways are available:
 
-Using the method `toRomanNumeral` on `Int` (resulting in a `RomanNumeral`) or `String` which will result in an `Option[RomanNumeral]`.
+Using the method `toRomanNumeral` on `Int` (resulting in a `RomanNumeral`) or `String` which will result in an
+`Option[RomanNumeral]`.
 Note that this last method expects compacted Roman Numerals (f.e. IV instead of IIII).
 
 ```scala
