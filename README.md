@@ -43,8 +43,17 @@ import JuliusImplicits._
 ```
 
 ## Usage
-Julius makes the `+`, `-`, `*` and `/` operators available for Roman Numerals.
+Julius makes the `+`, `-`, `*` and `/` operators available for Roman Digits and Numerals, which can be freely combined
+just like with `Int`.
 
+some examples:
+```scala
+import JuliusImplicits._
+M + M + X + V + I // res6: RomanNumeral = MMXVI
+"XX".toRomanNumeral.get * V // res7: RomanNumeral = C
+(3.toRomanNumeral * C / V) - L - X // res8: RomanNumeral = nulla
+
+```
 ## Links
 Roman Numerals:
 - General information - https://en.wikipedia.org/wiki/Roman_numerals
