@@ -45,9 +45,9 @@ import JuliusImplicits._
 "nulla".toRomanNumeral // res5: Option[RomanNumeral] = Some(nulla)
 ```
 
-## Usage
+## Operators and expressions
 Julius makes the `+`, `-`, `*` and `/` operators available for Roman Digits and Numerals, which can be freely combined
-just like with `Int`.
+to construct expressions.
 
 some examples:
 ```scala
