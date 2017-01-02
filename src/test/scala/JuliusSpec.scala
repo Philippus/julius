@@ -7,7 +7,7 @@ import JuliusImplicits._
 import scala.collection.immutable.Stream
 
 object JuliusSpec extends Properties("Julius") {
-  def genRomanDigit: Gen[RomanDigit] = oneOf(List(M, D, C, L, X, V, I))
+  def genRomanDigit: Gen[RomanDigit] = oneOf(RomanDigit.values)
 
   implicit val arbitraryRomanDigit: Arbitrary[RomanDigit] = Arbitrary(genRomanDigit)
 

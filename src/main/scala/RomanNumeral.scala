@@ -34,7 +34,7 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
         if (compare != 0 || digits.isEmpty) compare < 0
         else lessThanHelper(digits.tail, l, r, l.count(_ == digits.head).compare(r.count(_ == digits.head)))
       }
-      lessThanHelper(List(M, D, C, L, X, V, I), l, r, 0)
+      lessThanHelper(RomanDigit.values, l, r, 0)
   }
 
   def +(that: RomanNumeral): RomanNumeral = (this, that) match {
@@ -125,7 +125,7 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
     case (_, Nulla) => throw new ArithmeticException("/ by nulla")
     case (Nulla, _) => Nulla
     case (RomanDigits(_), RomanDigits(_)) =>
-      val digits = List(M, D, C, L, X, V, I)
+      val digits = RomanDigit.values
       val multiplicationTable = digits.zip(digits.map(x => RomanNumeral(x) * that))
 
       def divideHelper(multiplicationTable: List[(RomanDigit, RomanNumeral)], acc: List[RomanDigit], remainder: RomanNumeral): RomanNumeral = {

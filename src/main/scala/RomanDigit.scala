@@ -1,3 +1,5 @@
+import ca.mrvisser.sealerate
+
 sealed trait RomanDigit extends Ordered[RomanDigit] with Product with Serializable {
   def compare(that: RomanDigit): Int = {
     if (this == that) 0
@@ -23,3 +25,7 @@ case object L extends RomanDigit
 case object C extends RomanDigit
 case object D extends RomanDigit
 case object M extends RomanDigit
+
+object RomanDigit {
+  def values: List[RomanDigit] = sealerate.values[RomanDigit].toList.sorted.reverse
+}

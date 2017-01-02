@@ -60,7 +60,7 @@ object JuliusImplicits {
           }
         }
       }
-      intToRomanNumeralHelper(digits = List(M, D, C, L, X, V, I), acc = List(), remainder = i)
+      intToRomanNumeralHelper(digits = RomanDigit.values, acc = List(), remainder = i)
     }
   }
 
