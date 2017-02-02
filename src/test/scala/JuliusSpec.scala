@@ -68,6 +68,10 @@ object JuliusSpec extends Properties("Julius") {
     (n: RomanNumeral, m: RomanNumeral, o: RomanNumeral) => (n + m) + o == n + (m + o)
   }
 
+  property("RomanNumeral addition has an identity element") = forAll(genNulla, genRomanDigits) {
+    (n: RomanNumeral, m: RomanNumeral) => n + m == m + n && n + m == m
+  }
+
   @tailrec def checkList(l: List[RomanDigit]): Boolean = l match {
     case a :: b :: rest => (a >= b) && checkList(b :: rest)
     case _ :: Nil => true
@@ -207,6 +211,10 @@ object JuliusSpec extends Properties("Julius") {
 
   property("RomanNumeral multiplication is associative") = forAll(genLimitedRomanNumeral, genLimitedRomanNumeral, genLimitedRomanNumeral) {
     (n: RomanNumeral, m: RomanNumeral, o: RomanNumeral) => (n * m) * o == n * (m * o)
+  }
+
+  property("RomanNumeral multiplication has an identity element") = forAll(genRomanNumeral) {
+    n: RomanNumeral => n * I == I * n && n * I == n
   }
 
   property("RomanNumeral adding is left distributive") = forAll {
