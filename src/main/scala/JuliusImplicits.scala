@@ -88,7 +88,7 @@ object JuliusImplicits {
       l.substitute(substitutes)
     }
 
-    @tailrec def validMs(l: List[RomanDigit]): Boolean = l match {
+    @tailrec private def validMs(l: List[RomanDigit]): Boolean = l match {
       case M :: tl => validMs(tl)
       case _ => validCs(l)
     }
