@@ -1,10 +1,12 @@
+import scala.annotation.tailrec
+import scala.collection.immutable.Stream
+
 import org.scalacheck.Gen._
 import org.scalacheck._
 import org.scalacheck.Prop.forAll
 import org.scalacheck.Shrink.shrink
-import JuliusImplicits._
 
-import scala.collection.immutable.Stream
+import JuliusImplicits._
 
 object JuliusSpec extends Properties("Julius") {
   def genRomanDigit: Gen[RomanDigit] = oneOf(List(M, D, C, L, X, V, I))
@@ -66,7 +68,7 @@ object JuliusSpec extends Properties("Julius") {
     (n: RomanNumeral, m: RomanNumeral, o: RomanNumeral) => (n + m) + o == n + (m + o)
   }
 
-  def checkList(l: List[RomanDigit]): Boolean = l match {
+  @tailrec def checkList(l: List[RomanDigit]): Boolean = l match {
     case a :: b :: rest => (a >= b) && checkList(b :: rest)
     case _ :: Nil => true
     case Nil => true
