@@ -1,3 +1,4 @@
+import scala.annotation.tailrec
 import scala.collection.immutable.ListMap
 import scala.language.implicitConversions
 
@@ -49,7 +50,7 @@ object JuliusImplicits {
 
   implicit class IntToRomanNumeral(i: Int) {
     def toRomanNumeral: RomanNumeral = {
-      def intToRomanNumeralHelper(digits: List[RomanDigit], acc: List[RomanDigit], remainder: Int): RomanNumeral = {
+      @tailrec def intToRomanNumeralHelper(digits: List[RomanDigit], acc: List[RomanDigit], remainder: Int): RomanNumeral = {
         if (digits.isEmpty || remainder == 0) RomanNumeral(acc)
         else {
           val digit = digits.head
@@ -87,7 +88,7 @@ object JuliusImplicits {
       l.substitute(substitutes)
     }
 
-    def validMs(l: List[RomanDigit]): Boolean = l match {
+    @tailrec private def validMs(l: List[RomanDigit]): Boolean = l match {
       case M :: tl => validMs(tl)
       case _ => validCs(l)
     }
@@ -131,6 +132,7 @@ object JuliusImplicits {
       case Nil => true
       case _ => false
     }
+
     def toRomanNumeral: Option[RomanNumeral] = {
       if (s == "nulla") Option(RomanNumeral())
       else {
