@@ -38,13 +38,13 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
       lessThanHelper(List(M, D, C, L, X, V, I), l, r, 0)
   }
 
-  def +(that: RomanNumeral): RomanNumeral = (this, that) match {
+  def plus(that: RomanNumeral): RomanNumeral = (this, that) match {
     case (Nulla, _) => that
     case (_, Nulla) => this
     case (RomanDigits(l), RomanDigits(r)) => RomanNumeral(l ++ r)
   }
 
-  def -(that: RomanNumeral): RomanNumeral = (this, that) match {
+  def minus(that: RomanNumeral): RomanNumeral = (this, that) match {
     case (Nulla, _) => Nulla
     case (_, Nulla) => this
     case (RomanDigits(_), RomanDigits(_)) if this <= that => Nulla
@@ -73,18 +73,18 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
       minusHelper(l.diff(r), r.diff(l))
   }
 
-  def *(that: RomanNumeral): RomanNumeral = (this, that) match {
+  def times(that: RomanNumeral): RomanNumeral = (this, that) match {
     case (Nulla, _) => Nulla
     case (_, Nulla) => Nulla
     case (RomanDigits(_), RomanDigits(_)) =>
-      @tailrec def multiplyHelper(r: RomanNumeral, s: RomanNumeral, acc: List[(RomanNumeral, RomanNumeral)]): List[(RomanNumeral, RomanNumeral)] = {
+      @tailrec def timesHelper(r: RomanNumeral, s: RomanNumeral, acc: List[(RomanNumeral, RomanNumeral)]): List[(RomanNumeral, RomanNumeral)] = {
         if (r == RomanNumeral(I)) acc ::: List((r, s))
-        else multiplyHelper(r.halve, s.double, acc ::: List((r, s)))
+        else timesHelper(r.halve, s.double, acc ::: List((r, s)))
       }
-      multiplyHelper(this, that, acc = List())
+      timesHelper(this, that, acc = List())
         .filter { case (halve, _) => halve.isOdd }
         .map { case (_, double) => double }
-        .reduce(_ + _)
+        .reduce(_ plus _)
   }
 
   def halve: RomanNumeral = this match {
@@ -104,7 +104,7 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
       halveHelper(l, acc = List())
   }
 
-  def double: RomanNumeral = this + this
+  def double: RomanNumeral = this plus this
 
   def isOdd: Boolean = this match {
     case Nulla => false
@@ -122,22 +122,22 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
       isOddHelper(l, isOdd = false)
   }
 
-  def /(that: RomanNumeral): RomanNumeral = (this, that) match {
+  def div(that: RomanNumeral): RomanNumeral = (this, that) match {
     case (_, Nulla) => throw new ArithmeticException("/ by nulla")
     case (Nulla, _) => Nulla
     case (RomanDigits(_), RomanDigits(_)) =>
       val digits = List(M, D, C, L, X, V, I)
-      val multiplicationTable = digits.zip(digits.map(x => RomanNumeral(x) * that))
+      val multiplicationTable = digits.zip(digits.map(x => RomanNumeral(x) times that))
 
-      @tailrec def divideHelper(multiplicationTable: List[(RomanDigit, RomanNumeral)], acc: List[RomanDigit], remainder: RomanNumeral): RomanNumeral = {
+      @tailrec def divHelper(multiplicationTable: List[(RomanDigit, RomanNumeral)], acc: List[RomanDigit], remainder: RomanNumeral): RomanNumeral = {
         if (multiplicationTable.isEmpty) RomanNumeral(acc)
         else {
           val (digit, multiple) = multiplicationTable.head
-          if (multiple <= remainder) divideHelper(multiplicationTable, acc ++ List(digit), remainder - multiple)
-          else divideHelper(multiplicationTable.tail, acc, remainder)
+          if (multiple <= remainder) divHelper(multiplicationTable, acc ++ List(digit), remainder minus multiple)
+          else divHelper(multiplicationTable.tail, acc, remainder)
         }
       }
-      divideHelper(multiplicationTable, acc = List(), remainder = this)
+      divHelper(multiplicationTable, acc = List(), remainder = this)
   }
 
   def optimize: RomanNumeral = this match {

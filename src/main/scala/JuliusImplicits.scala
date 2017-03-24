@@ -8,19 +8,19 @@ object JuliusImplicits {
   implicit class RomanDigitToInt(r: RomanDigit) {
     def +(that: RomanDigit): RomanNumeral = RomanNumeral(List(r, that))
 
-    def +(that: RomanNumeral): RomanNumeral = RomanNumeral(r) + that
+    def +(that: RomanNumeral): RomanNumeral = RomanNumeral(r).plus(that)
 
-    def *(that: RomanDigit): RomanNumeral = RomanNumeral(r) * RomanNumeral(that)
+    def *(that: RomanDigit): RomanNumeral = RomanNumeral(r).times(RomanNumeral(that))
 
-    def *(that: RomanNumeral): RomanNumeral = RomanNumeral(r) * that
+    def *(that: RomanNumeral): RomanNumeral = RomanNumeral(r).times(that)
 
-    def -(that: RomanDigit): RomanNumeral = RomanNumeral(r) - RomanNumeral(that)
+    def -(that: RomanDigit): RomanNumeral = RomanNumeral(r).minus(RomanNumeral(that))
 
-    def -(that: RomanNumeral): RomanNumeral = RomanNumeral(r) - that
+    def -(that: RomanNumeral): RomanNumeral = RomanNumeral(r).minus(that)
 
-    def /(that: RomanDigit): RomanNumeral = RomanNumeral(r) / RomanNumeral(that)
+    def /(that: RomanDigit): RomanNumeral = RomanNumeral(r).div(RomanNumeral(that))
 
-    def /(that: RomanNumeral): RomanNumeral = RomanNumeral(r) / that
+    def /(that: RomanNumeral): RomanNumeral = RomanNumeral(r).div(that)
 
     def toInt: Int = r match {
       case I => 1
@@ -34,13 +34,13 @@ object JuliusImplicits {
   }
 
   implicit class RomanNumeralToInt(n: RomanNumeral) {
-    def +(that: RomanDigit): RomanNumeral = n + RomanNumeral(that)
+    def +(that: RomanDigit): RomanNumeral = n.plus(RomanNumeral(that))
 
-    def *(that: RomanDigit): RomanNumeral = n * RomanNumeral(that)
+    def *(that: RomanDigit): RomanNumeral = n.times(RomanNumeral(that))
 
-    def -(that: RomanDigit): RomanNumeral = n - RomanNumeral(that)
+    def -(that: RomanDigit): RomanNumeral = n.minus(RomanNumeral(that))
 
-    def /(that: RomanDigit): RomanNumeral = n / RomanNumeral(that)
+    def /(that: RomanDigit): RomanNumeral = n.div(RomanNumeral(that))
 
     def toInt: Int = n match {
       case RomanNumeral.Nulla => 0
