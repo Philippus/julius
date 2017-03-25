@@ -4,7 +4,7 @@ import scala.collection.immutable.ListMap
 import ExtendedList._
 
 sealed trait RomanNumeral extends Ordered[RomanNumeral] {
-
+  import RomanDigit._
   import RomanNumeral.{Nulla, RomanDigits}
 
   override def toString: String = this match {
@@ -153,6 +153,8 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
       )
       RomanDigits(l.substitute(substitutes))
   }
+
+
 }
 
 object RomanNumeral {
@@ -165,4 +167,16 @@ object RomanNumeral {
     if (l.isEmpty) Nulla
     else RomanDigits(l.sorted.reverse).optimize
   }
+
+  implicit class RomanNumeralOps(lhs: RomanNumeral) {
+    def +(rhs: RomanNumeral): RomanNumeral = lhs.plus(rhs)
+    def -(rhs: RomanNumeral): RomanNumeral = lhs.minus(rhs)
+    def *(rhs: RomanNumeral): RomanNumeral = lhs.times(rhs)
+    def /(rhs: RomanNumeral): RomanNumeral = lhs.div(rhs)
+    def +(rhs: RomanDigit): RomanNumeral = lhs.plus(RomanNumeral(rhs))
+    def -(rhs: RomanDigit): RomanNumeral = lhs.minus(RomanNumeral(rhs))
+    def *(rhs: RomanDigit): RomanNumeral = lhs.times(RomanNumeral(rhs))
+    def /(rhs: RomanDigit): RomanNumeral = lhs.div(RomanNumeral(rhs))
+  }
+
 }

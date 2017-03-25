@@ -7,6 +7,8 @@ import JuliusImplicits._
 
 object JuliusSpec extends Properties("Julius") {
   import Generators._
+  import RomanDigit._
+  import RomanNumeral._
 
   property("RomanDigit.generator only generates roman digits") = forAll {
     r: RomanDigit => r match {

@@ -4,8 +4,10 @@ import org.scalacheck.Shrink.shrink
 
 import scala.collection.immutable.Stream
 import JuliusImplicits._
+import RomanDigit._
 
 object Generators {
+
   def genRomanDigit: Gen[RomanDigit] = oneOf(List(M, D, C, L, X, V, I))
 
   implicit val arbitraryRomanDigit: Arbitrary[RomanDigit] = Arbitrary(genRomanDigit)
