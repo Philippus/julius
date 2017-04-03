@@ -3,8 +3,6 @@ import scala.annotation.tailrec
 import org.scalacheck._
 import org.scalacheck.Prop.forAll
 
-import JuliusImplicits._
-
 object JuliusSpec extends Properties("Julius") {
   import Generators._
   import RomanDigit._

@@ -37,4 +37,39 @@ object RomanDigit {
     def *(rhs: RomanNumeral): RomanNumeral = RomanNumeral(lhs).times(rhs)
     def /(rhs: RomanNumeral): RomanNumeral = RomanNumeral(lhs).div(rhs)
   }
+
+  implicit class RomanDigitConversions(r: RomanDigit) {
+    def toInt: Int = r match {
+      case I => 1
+      case V => 5
+      case X => 10
+      case L => 50
+      case C => 100
+      case D => 500
+      case M => 1000
+    }
+
+    def toChar: Char = r match {
+      case I => 'I'
+      case V => 'V'
+      case X => 'X'
+      case L => 'L'
+      case C => 'C'
+      case D => 'D'
+      case M => 'M'
+    }
+  }
+
+  implicit class RomanDigitFromChar(c: Char) {
+    def toRomanDigit: Option[RomanDigit] = c match {
+      case 'I' => Some(I)
+      case 'V' => Some(V)
+      case 'X' => Some(X)
+      case 'L' => Some(L)
+      case 'C' => Some(C)
+      case 'D' => Some(D)
+      case 'M' => Some(M)
+      case _ => None
+    }
+  }
 }

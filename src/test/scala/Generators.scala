@@ -3,7 +3,6 @@ import org.scalacheck.Gen._
 import org.scalacheck.Shrink.shrink
 
 import scala.collection.immutable.Stream
-import JuliusImplicits._
 import RomanDigit._
 
 object Generators {
