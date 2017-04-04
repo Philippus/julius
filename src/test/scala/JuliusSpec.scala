@@ -253,6 +253,16 @@ object JuliusSpec extends Properties("Julius") {
     (n: RomanNumeral, m: RomanNumeral) => (n >= m) == (n.toInt >= m.toInt)
   }
 
+  property("RomanDigit to Char and back") = forAll {
+    (r: RomanDigit) => r == r.toChar.toRomanDigit.getOrElse(false)
+  }
+
+  property("RomanDigit from Char") = forAll {
+    (c: Char) => c.toRomanDigit match {
+      case Some(_) => List('I', 'V', 'X', 'L', 'C', 'D', 'M').contains(c)
+      case None => !List('I', 'V', 'X', 'L', 'C', 'D', 'M').contains(c)
+    }
+  }
   property("RomanNumeral to String and back") = forAll {
     (n: RomanNumeral) => n == n.toString.toRomanNumeral.getOrElse(false)
   }
