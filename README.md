@@ -22,16 +22,19 @@ There are several ways to construct a Roman Numeral.
 Directly, by supplying a `List[RomanDigit]` to `RomanNumeral()`. This list is treated as an unordered collection of
 Roman Digits.
 
-After importing `JuliusImplicits._` the following ways are available:
+After importing `RomanNumeral.RomanNumeralFromInt` or `RomanNumeral.RomanNumeralFromString` the following ways are
+available:
 
 Using the method `toRomanNumeral` on `Int` (resulting in a `RomanNumeral`) or `String` which will result in an
 `Option[RomanNumeral]`.
 Note that this last method expects compacted Roman Numerals (f.e. IV instead of IIII).
 
 ```scala
+import RomanDigit._
 RomanNumeral(List(I, I, X, I)) // res0: RomanNumeral = XIII
-import JuliusImplicits._
+import RomanNumeral.RomanNumeralFromInt
 1666.toRomanNumeral // res1: RomanNumeral = MDCLXVI
+import RomanNumeral.RomanNumeralFromString
 "XIV".toRomanNumeral // res2: Option[RomanNumeral] = Some(XIV)
 ```
 
@@ -40,22 +43,25 @@ The special value `Nulla` (zero) can also be constructed similarly:
 
 ```scala
 RomanNumeral() // res3: RomanNumeral = nulla
-import JuliusImplicits._
+import RomanNumeral.RomanNumeralFromInt
 0.toRomanNumeral // res4: RomanNumeral = nulla
+import RomanNumeral.RomanNumeralFromString
 "nulla".toRomanNumeral // res5: Option[RomanNumeral] = Some(nulla)
 ```
 
 ## Operators and expressions
 Julius makes the `+`, `-`, `*` and `/` operators available for Roman Digits and Numerals, which can be freely combined
-to construct expressions.
+to construct expressions. This is also yet another way to construct a Roman Numeral.
 
 some examples:
 ```scala
-import JuliusImplicits._
+import RomanDigit._
+import RomanNumeral.RomanNumeralOps
 M + M + X + V + I // res6: RomanNumeral = MMXVI
-"XX".toRomanNumeral.get * V // res7: RomanNumeral = C
-(3.toRomanNumeral * C / V) - L - X // res8: RomanNumeral = nulla
-
+import RomanNumeral.RomanNumeralFromInt
+(3.toRomanNumeral * C / V) - L - X // res7: RomanNumeral = nulla
+import RomanNumeral.RomanNumeralFromString
+"XX".toRomanNumeral.get * V // res8: RomanNumeral = C
 ```
 ## Links
 Roman Numerals:
