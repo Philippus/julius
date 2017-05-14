@@ -63,6 +63,14 @@ import RomanNumeral.RomanNumeralFromInt
 import RomanNumeral.RomanNumeralFromString
 "XX".toRomanNumeral.get * V // res8: RomanNumeral = C
 ```
+
+## Specification
+
+```
+romanNumeral ::= nulla | romanDigit {romanDigit}
+romanDigit ::= 'M' | 'D' | 'C' | 'L' | 'X' | 'V' | 'I'
+```
+
 ## Links
 Roman Numerals:
 - General information - https://en.wikipedia.org/wiki/Roman_numerals
