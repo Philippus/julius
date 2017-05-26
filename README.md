@@ -16,6 +16,14 @@ converting back and forth from integers.
 [![Build Status](https://travis-ci.org/Philippus/julius.svg?branch=master)](https://travis-ci.org/Philippus/julius)
 [![codecov](https://codecov.io/gh/Philippus/julius/branch/master/graph/badge.svg)](https://codecov.io/gh/Philippus/julius)
 
+## Specification
+A Roman Numeral is either the value `nulla` (Latin for "none") or consists of one or more Roman Digits:
+
+```
+romanNumeral ::= nulla | romanDigit {romanDigit}
+romanDigit ::= 'M' | 'D' | 'C' | 'L' | 'X' | 'V' | 'I'
+```
+
 ## Constructing a Roman Numeral
 There are several ways to construct a Roman Numeral.
 
@@ -39,7 +47,7 @@ import RomanNumeral.RomanNumeralFromString
 ```
 
 ## Nulla
-The special value `Nulla` (zero) can also be constructed similarly:
+The special value `nulla` (zero) can also be constructed similarly:
 
 ```scala
 RomanNumeral() // res3: RomanNumeral = nulla
@@ -62,13 +70,6 @@ import RomanNumeral.RomanNumeralFromInt
 (3.toRomanNumeral * C / V) - L - X // res7: RomanNumeral = nulla
 import RomanNumeral.RomanNumeralFromString
 "XX".toRomanNumeral.get * V // res8: RomanNumeral = C
-```
-
-## Specification
-
-```
-romanNumeral ::= nulla | romanDigit {romanDigit}
-romanDigit ::= 'M' | 'D' | 'C' | 'L' | 'X' | 'V' | 'I'
 ```
 
 ## Links
