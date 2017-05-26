@@ -7,7 +7,7 @@ It was started to get more comfortable with functional programming, Scala and pr
 It aims to:
 - provide a pleasant API to the users of the library.
 - provide the basic operations of addition, subtraction, multiplication and division.
-- do as the romans do: the implemented algorithms are only allowed to manipulate the roman symbols directly, so no
+- do as the Romans do: the implemented algorithms are only allowed to manipulate the Roman symbols directly, so no
 converting back and forth from integers.
 - use idiomatic Scala
 - use functional style of programming
@@ -15,6 +15,14 @@ converting back and forth from integers.
 
 [![Build Status](https://travis-ci.org/Philippus/julius.svg?branch=master)](https://travis-ci.org/Philippus/julius)
 [![codecov](https://codecov.io/gh/Philippus/julius/branch/master/graph/badge.svg)](https://codecov.io/gh/Philippus/julius)
+
+## Specification
+A Roman Numeral is either the value `nulla` (Latin for "none") or consists of one or more Roman Digits:
+
+```
+romanNumeral ::= nulla | romanDigit {romanDigit}
+romanDigit ::= 'M' | 'D' | 'C' | 'L' | 'X' | 'V' | 'I'
+```
 
 ## Constructing a Roman Numeral
 There are several ways to construct a Roman Numeral.
@@ -39,7 +47,7 @@ import RomanNumeral.RomanNumeralFromString
 ```
 
 ## Nulla
-The special value `Nulla` (zero) can also be constructed similarly:
+The special value `nulla` (zero) can also be constructed similarly:
 
 ```scala
 RomanNumeral() // res3: RomanNumeral = nulla
@@ -63,6 +71,7 @@ import RomanNumeral.RomanNumeralFromInt
 import RomanNumeral.RomanNumeralFromString
 "XX".toRomanNumeral.get * V // res8: RomanNumeral = C
 ```
+
 ## Links
 Roman Numerals:
 - General information - https://en.wikipedia.org/wiki/Roman_numerals
