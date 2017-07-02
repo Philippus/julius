@@ -1,6 +1,9 @@
 Julius - Roman Numerals
 =======================
 
+[![Build Status](https://travis-ci.org/Philippus/julius.svg?branch=master)](https://travis-ci.org/Philippus/julius)
+[![codecov](https://codecov.io/gh/Philippus/julius/branch/master/graph/badge.svg)](https://codecov.io/gh/Philippus/julius)
+
 Julius is a library for working with Roman Numerals in Scala.
 It was started to get more comfortable with functional programming, Scala and property based testing.
 
@@ -12,9 +15,6 @@ converting back and forth from integers.
 - use idiomatic Scala
 - use functional style of programming
 - use property based testing with ScalaCheck
-
-[![Build Status](https://travis-ci.org/Philippus/julius.svg?branch=master)](https://travis-ci.org/Philippus/julius)
-[![codecov](https://codecov.io/gh/Philippus/julius/branch/master/graph/badge.svg)](https://codecov.io/gh/Philippus/julius)
 
 ## Constructing a Roman Numeral
 There are several ways to construct a Roman Numeral.
