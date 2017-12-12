@@ -1,8 +1,8 @@
-Julius - Roman Numerals
-=======================
+# Julius - Roman Numerals
 
 [![Build Status](https://travis-ci.org/Philippus/julius.svg?branch=master)](https://travis-ci.org/Philippus/julius)
 [![codecov](https://codecov.io/gh/Philippus/julius/branch/master/graph/badge.svg)](https://codecov.io/gh/Philippus/julius)
+![Current Version](https://img.shields.io/badge/version-1.0.0-brightgreen.svg?style=flat "1.0.0")
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat "MIT")](LICENSE.md)
 
 Julius is a library for working with Roman Numerals in Scala.
@@ -16,6 +16,16 @@ converting back and forth from integers.
 - use idiomatic Scala
 - use functional style of programming
 - use property based testing with ScalaCheck
+
+## Installation
+
+Julius is published for Scala 2.11 and 2.12. To start using it add the following to your `build.sbt`:
+
+```
+resolvers += Resolver.bintrayRepo("gn0s1s", "releases")
+
+libraryDependencies += "nl.gn0s1s" %% "julius" % "1.0.0"
+```
 
 ## Specification
 A Roman Numeral is either the value `nulla` (Latin for "none") or consists of one or more Roman Digits:
@@ -39,11 +49,11 @@ Using the method `toRomanNumeral` on `Int` (resulting in a `RomanNumeral`) or `S
 Note that this last method expects compacted Roman Numerals (f.e. IV instead of IIII).
 
 ```scala
-import RomanDigit._
+import nl.gn0s1s.julius.RomanDigit._
 RomanNumeral(List(I, I, X, I)) // res0: RomanNumeral = XIII
-import RomanNumeral.RomanNumeralFromInt
+import nl.gn0s1s.julius.RomanNumeral.RomanNumeralFromInt
 1666.toRomanNumeral // res1: RomanNumeral = MDCLXVI
-import RomanNumeral.RomanNumeralFromString
+import nl.gn0s1s.julius.RomanNumeral.RomanNumeralFromString
 "XIV".toRomanNumeral // res2: Option[RomanNumeral] = Some(XIV)
 ```
 
@@ -52,9 +62,9 @@ The special value `nulla` (zero) can also be constructed similarly:
 
 ```scala
 RomanNumeral() // res3: RomanNumeral = nulla
-import RomanNumeral.RomanNumeralFromInt
+import nl.gn0s1s.julius.RomanNumeral.RomanNumeralFromInt
 0.toRomanNumeral // res4: RomanNumeral = nulla
-import RomanNumeral.RomanNumeralFromString
+import nl.gn0s1s.julius.RomanNumeral.RomanNumeralFromString
 "nulla".toRomanNumeral // res5: Option[RomanNumeral] = Some(nulla)
 ```
 
@@ -64,12 +74,12 @@ to construct expressions. This is also yet another way to construct a Roman Nume
 
 some examples:
 ```scala
-import RomanDigit._
-import RomanNumeral.RomanNumeralOps
+import nl.gn0s1s.julius.RomanDigit._
+import nl.gn0s1s.julius.RomanNumeral.RomanNumeralOps
 M + M + X + V + I // res6: RomanNumeral = MMXVI
-import RomanNumeral.RomanNumeralFromInt
+import nl.gn0s1s.julius.RomanNumeral.RomanNumeralFromInt
 (3.toRomanNumeral * C / V) - L - X // res7: RomanNumeral = nulla
-import RomanNumeral.RomanNumeralFromString
+import nl.gn0s1s.julius.RomanNumeral.RomanNumeralFromString
 "XX".toRomanNumeral.get * V // res8: RomanNumeral = C
 ```
 

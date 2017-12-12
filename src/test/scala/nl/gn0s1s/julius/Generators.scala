@@ -1,8 +1,11 @@
+package nl.gn0s1s.julius
+
+import scala.collection.immutable.Stream
+
 import org.scalacheck._
 import org.scalacheck.Gen._
 import org.scalacheck.Shrink.shrink
 
-import scala.collection.immutable.Stream
 import RomanDigit._
 
 object Generators {

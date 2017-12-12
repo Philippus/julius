@@ -1,3 +1,5 @@
+package nl.gn0s1s.julius
+
 import scala.annotation.tailrec
 import scala.collection.immutable.ListMap
 import scala.language.implicitConversions
@@ -10,8 +12,7 @@ object ExtendedList {
       if ((source containsSlice target) && target != replacement && target.nonEmpty) {
         val (left, right) = source.splitAt(source.indexOfSlice(target))
         left ::: replacement ::: right.drop(target.length).replaceSlice(target, replacement)
-      }
-      else source
+      } else source
     }
 
     @tailrec final def substitute(substitutes: ListMap[List[A], List[A]]): List[A] = {
