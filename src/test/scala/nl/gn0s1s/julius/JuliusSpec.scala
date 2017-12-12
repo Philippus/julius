@@ -11,29 +11,32 @@ object JuliusSpec extends Properties("Julius") {
   import RomanNumeral._
 
   property("RomanDigit.generator only generates roman digits") = forAll {
-    r: RomanDigit => r match {
-      case I => true
-      case V => true
-      case X => true
-      case L => true
-      case C => true
-      case D => true
-      case M => true
-    }
+    r: RomanDigit =>
+      r match {
+        case I => true
+        case V => true
+        case X => true
+        case L => true
+        case C => true
+        case D => true
+        case M => true
+      }
   }
 
   property("RomanNumeral.generator only generates roman numerals") = forAll {
-    n: RomanNumeral => n match {
-      case RomanNumeral.Nulla => true
-      case RomanNumeral.RomanDigits(_) => true
-    }
+    n: RomanNumeral =>
+      n match {
+        case RomanNumeral.Nulla => true
+        case RomanNumeral.RomanDigits(_) => true
+      }
   }
 
   property("RomanNumeral should be Nulla or consist of one or more digits") = forAll {
-    n: RomanNumeral => n match {
-      case RomanNumeral.Nulla => true
-      case RomanNumeral.RomanDigits(l) => l.nonEmpty
-    }
+    n: RomanNumeral =>
+      n match {
+        case RomanNumeral.Nulla => true
+        case RomanNumeral.RomanDigits(l) => l.nonEmpty
+      }
   }
 
   property("RomanNumeral addition is commutative") = forAll {
@@ -54,23 +57,25 @@ object JuliusSpec extends Properties("Julius") {
   }
 
   property("RomanNumeral always has its digits sorted from high to low") = forAll {
-    n: RomanNumeral => n match {
-      case RomanNumeral.Nulla => true
-      case RomanNumeral.RomanDigits(l) => checkList(l)
-    }
+    n: RomanNumeral =>
+      n match {
+        case RomanNumeral.Nulla => true
+        case RomanNumeral.RomanDigits(l) => checkList(l)
+      }
   }
 
   property("RomanNumeral is optimized after addition") = forAll {
-    (n: RomanNumeral, m: RomanNumeral) => n.plus(m) match {
-      case RomanNumeral.Nulla => true
-      case RomanNumeral.RomanDigits(l) =>
-        !(l containsSlice List(I, I, I, I, I)) &&
-        !(l containsSlice List(V, V)) &&
-        !(l containsSlice List(X, X, X, X, X)) &&
-        !(l containsSlice List(L, L)) &&
-        !(l containsSlice List(C, C, C, C, C)) &&
-        !(l containsSlice List(D, D))
-    }
+    (n: RomanNumeral, m: RomanNumeral) =>
+      n.plus(m) match {
+        case RomanNumeral.Nulla => true
+        case RomanNumeral.RomanDigits(l) =>
+          !(l containsSlice List(I, I, I, I, I)) &&
+            !(l containsSlice List(V, V)) &&
+            !(l containsSlice List(X, X, X, X, X)) &&
+            !(l containsSlice List(L, L)) &&
+            !(l containsSlice List(C, C, C, C, C)) &&
+            !(l containsSlice List(D, D))
+      }
   }
 
   property("RomanNumeral is optimized after creation") = forAll {
@@ -78,115 +83,131 @@ object JuliusSpec extends Properties("Julius") {
   }
 
   property("RomanDigit can be added to another") = forAll {
-    (r: RomanDigit, s: RomanDigit) => r + s match {
-      case RomanNumeral.Nulla => false
-      case RomanNumeral.RomanDigits(_) => true
-    }
+    (r: RomanDigit, s: RomanDigit) =>
+      r + s match {
+        case RomanNumeral.Nulla => false
+        case RomanNumeral.RomanDigits(_) => true
+      }
   }
 
   property("RomanDigit can be added to a RomanNumeral") = forAll {
-    (n: RomanNumeral, r: RomanDigit) => n + r match {
-      case RomanNumeral.Nulla => false
-      case RomanNumeral.RomanDigits(_) => true
-    }
+    (n: RomanNumeral, r: RomanDigit) =>
+      n + r match {
+        case RomanNumeral.Nulla => false
+        case RomanNumeral.RomanDigits(_) => true
+      }
   }
 
   property("RomanNumeral can be added to a RomanNumeral") = forAll {
-    (n: RomanNumeral, m: RomanNumeral) => n + m match {
-      case RomanNumeral.Nulla => true
-      case RomanNumeral.RomanDigits(_) => true
-    }
+    (n: RomanNumeral, m: RomanNumeral) =>
+      n + m match {
+        case RomanNumeral.Nulla => true
+        case RomanNumeral.RomanDigits(_) => true
+      }
   }
 
   property("RomanNumeral can be added to a RomanDigit") = forAll {
-    (r: RomanDigit, n: RomanNumeral) => r + n match {
-      case RomanNumeral.Nulla => false
-      case RomanNumeral.RomanDigits(_) => true
-    }
+    (r: RomanDigit, n: RomanNumeral) =>
+      r + n match {
+        case RomanNumeral.Nulla => false
+        case RomanNumeral.RomanDigits(_) => true
+      }
   }
 
   property("RomanDigit can be multiplied by another") = forAll {
-    (r: RomanDigit, s: RomanDigit) => r * s match {
-      case RomanNumeral.Nulla => true
-      case RomanNumeral.RomanDigits(_) => true
-    }
+    (r: RomanDigit, s: RomanDigit) =>
+      r * s match {
+        case RomanNumeral.Nulla => true
+        case RomanNumeral.RomanDigits(_) => true
+      }
   }
 
   property("RomanNumeral can be multiplied by a RomanDigit") = forAll {
-    (n: RomanNumeral, r: RomanDigit) => n * r match {
-      case RomanNumeral.Nulla => true
-      case RomanNumeral.RomanDigits(_) => true
-    }
+    (n: RomanNumeral, r: RomanDigit) =>
+      n * r match {
+        case RomanNumeral.Nulla => true
+        case RomanNumeral.RomanDigits(_) => true
+      }
   }
 
   property("RomanNumeral can be multiplied by another") = forAll {
-    (n: RomanNumeral, m: RomanNumeral) => n * m match {
-      case RomanNumeral.Nulla => true
-      case RomanNumeral.RomanDigits(_) => true
-    }
+    (n: RomanNumeral, m: RomanNumeral) =>
+      n * m match {
+        case RomanNumeral.Nulla => true
+        case RomanNumeral.RomanDigits(_) => true
+      }
   }
 
   property("RomanDigit can be multiplied by a RomanNumeral") = forAll {
-    (r: RomanDigit, n: RomanNumeral) => r * n match {
-      case RomanNumeral.Nulla => true
-      case RomanNumeral.RomanDigits(_) => true
-    }
+    (r: RomanDigit, n: RomanNumeral) =>
+      r * n match {
+        case RomanNumeral.Nulla => true
+        case RomanNumeral.RomanDigits(_) => true
+      }
   }
 
   property("RomanDigit can be subtracted from another") = forAll {
-    (r: RomanDigit, s: RomanDigit) => r - s match {
-      case RomanNumeral.Nulla => true
-      case RomanNumeral.RomanDigits(_) => true
-    }
+    (r: RomanDigit, s: RomanDigit) =>
+      r - s match {
+        case RomanNumeral.Nulla => true
+        case RomanNumeral.RomanDigits(_) => true
+      }
   }
 
   property("RomanDigit can be subtracted from a RomanNumeral") = forAll {
-    (n: RomanNumeral, r: RomanDigit) => n - r match {
-      case RomanNumeral.Nulla => true
-      case RomanNumeral.RomanDigits(_) => true
-    }
+    (n: RomanNumeral, r: RomanDigit) =>
+      n - r match {
+        case RomanNumeral.Nulla => true
+        case RomanNumeral.RomanDigits(_) => true
+      }
   }
 
   property("RomanNumeral can be subtracted from a RomanNumeral") = forAll {
-    (n: RomanNumeral, m: RomanNumeral) => n - m match {
-      case RomanNumeral.Nulla => true
-      case RomanNumeral.RomanDigits(_) => true
-    }
+    (n: RomanNumeral, m: RomanNumeral) =>
+      n - m match {
+        case RomanNumeral.Nulla => true
+        case RomanNumeral.RomanDigits(_) => true
+      }
   }
 
   property("RomanNumeral can be subtracted from a RomanDigit") = forAll {
-    (r: RomanDigit, n: RomanNumeral) => r - n match {
-      case RomanNumeral.Nulla => true
-      case RomanNumeral.RomanDigits(_) => true
-    }
+    (r: RomanDigit, n: RomanNumeral) =>
+      r - n match {
+        case RomanNumeral.Nulla => true
+        case RomanNumeral.RomanDigits(_) => true
+      }
   }
 
   property("RomanDigit can be divided by another") = forAll {
-    (r: RomanDigit, s: RomanDigit) => r / s match {
-      case RomanNumeral.Nulla => true
-      case RomanNumeral.RomanDigits(_) => true
-    }
+    (r: RomanDigit, s: RomanDigit) =>
+      r / s match {
+        case RomanNumeral.Nulla => true
+        case RomanNumeral.RomanDigits(_) => true
+      }
   }
 
   property("RomanNumeral can be divided by a RomanDigit") = forAll {
-    (n: RomanNumeral, r: RomanDigit) => n / r match {
-      case RomanNumeral.Nulla => true
-      case RomanNumeral.RomanDigits(_) => true
-    }
+    (n: RomanNumeral, r: RomanDigit) =>
+      n / r match {
+        case RomanNumeral.Nulla => true
+        case RomanNumeral.RomanDigits(_) => true
+      }
   }
 
   property("RomanNumeral can be divided by another") = forAll(genRomanNumeral, genRomanDigits) {
-    (n: RomanNumeral, m: RomanNumeral) => n / m match {
-      case RomanNumeral.Nulla => true
-      case RomanNumeral.RomanDigits(_) => true
-    }
+    (n: RomanNumeral, m: RomanNumeral) =>
+      n / m match {
+        case RomanNumeral.Nulla => true
+        case RomanNumeral.RomanDigits(_) => true
+      }
   }
 
   property("RomanDigit can be divided by a RomanNumeral") = forAll(genRomanDigit, genRomanDigits) {
-    (r: RomanDigit, n: RomanNumeral) => r / n match {
-      case RomanNumeral.Nulla => true
-      case RomanNumeral.RomanDigits(_) => true
-    }
+    (r: RomanDigit, n: RomanNumeral) =>
+      r / n match {
+        case RomanNumeral.Nulla => true
+        case RomanNumeral.RomanDigits(_) => true
+      }
   }
 
   property("RomanNumeral division by Nulla results in ArithmeticException") = forAll {
@@ -202,10 +223,11 @@ object JuliusSpec extends Properties("Julius") {
   }
 
   property("RomanNumeral halving then doubling") = forAll {
-    (n: RomanNumeral) => {
-      if (n.isOdd) n == n.halve.double + I
-      else n == n.halve.double
-    }
+    (n: RomanNumeral) =>
+      {
+        if (n.isOdd) n == n.halve.double + I
+        else n == n.halve.double
+      }
   }
 
   property("RomanNumeral multiplication is commutative") = forAll {
@@ -241,10 +263,11 @@ object JuliusSpec extends Properties("Julius") {
   }
 
   property("RomanNumeral multiplying then dividing") = forAll {
-    (n: RomanNumeral, m: RomanNumeral) => m match {
-      case RomanNumeral.Nulla => true
-      case RomanNumeral.RomanDigits(_) => n == n.times(m).div(m)
-    }
+    (n: RomanNumeral, m: RomanNumeral) =>
+      m match {
+        case RomanNumeral.Nulla => true
+        case RomanNumeral.RomanDigits(_) => n == n.times(m).div(m)
+      }
   }
 
   property("adding RomanNumerals and then converting to int is the same as converting to int and then adding") = forAll {
@@ -288,10 +311,11 @@ object JuliusSpec extends Properties("Julius") {
   }
 
   property("RomanDigit from Char") = forAll {
-    (c: Char) => c.toRomanDigit match {
-      case Some(_) => List('I', 'V', 'X', 'L', 'C', 'D', 'M').contains(c)
-      case None => !List('I', 'V', 'X', 'L', 'C', 'D', 'M').contains(c)
-    }
+    (c: Char) =>
+      c.toRomanDigit match {
+        case Some(_) => List('I', 'V', 'X', 'L', 'C', 'D', 'M').contains(c)
+        case None => !List('I', 'V', 'X', 'L', 'C', 'D', 'M').contains(c)
+      }
   }
   property("RomanNumeral to String and back") = forAll {
     (n: RomanNumeral) => n == n.toString.toRomanNumeral.getOrElse(false)
