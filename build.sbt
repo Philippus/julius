@@ -1,4 +1,4 @@
-name := "Julius - Roman Numerals"
+name := "julius"
 organization := "nl.gn0s1s"
 version := "1.0"
 startYear := Some(2016)
