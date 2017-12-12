@@ -1,3 +1,5 @@
+package nl.gn0s1s.julius
+
 sealed trait RomanDigit extends Ordered[RomanDigit] with Product with Serializable {
   import RomanDigit.{I, V, X, L, C, D, M}
 

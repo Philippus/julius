@@ -39,11 +39,11 @@ Using the method `toRomanNumeral` on `Int` (resulting in a `RomanNumeral`) or `S
 Note that this last method expects compacted Roman Numerals (f.e. IV instead of IIII).
 
 ```scala
-import RomanDigit._
+import nl.gn0s1s.julius.RomanDigit._
 RomanNumeral(List(I, I, X, I)) // res0: RomanNumeral = XIII
-import RomanNumeral.RomanNumeralFromInt
+import nl.gn0s1s.julius.RomanNumeral.RomanNumeralFromInt
 1666.toRomanNumeral // res1: RomanNumeral = MDCLXVI
-import RomanNumeral.RomanNumeralFromString
+import nl.gn0s1s.julius.RomanNumeral.RomanNumeralFromString
 "XIV".toRomanNumeral // res2: Option[RomanNumeral] = Some(XIV)
 ```
 
@@ -52,9 +52,9 @@ The special value `nulla` (zero) can also be constructed similarly:
 
 ```scala
 RomanNumeral() // res3: RomanNumeral = nulla
-import RomanNumeral.RomanNumeralFromInt
+import nl.gn0s1s.julius.RomanNumeral.RomanNumeralFromInt
 0.toRomanNumeral // res4: RomanNumeral = nulla
-import RomanNumeral.RomanNumeralFromString
+import nl.gn0s1s.julius.RomanNumeral.RomanNumeralFromString
 "nulla".toRomanNumeral // res5: Option[RomanNumeral] = Some(nulla)
 ```
 
@@ -64,12 +64,12 @@ to construct expressions. This is also yet another way to construct a Roman Nume
 
 some examples:
 ```scala
-import RomanDigit._
-import RomanNumeral.RomanNumeralOps
+import nl.gn0s1s.julius.RomanDigit._
+import nl.gn0s1s.julius.RomanNumeral.RomanNumeralOps
 M + M + X + V + I // res6: RomanNumeral = MMXVI
-import RomanNumeral.RomanNumeralFromInt
+import nl.gn0s1s.julius.RomanNumeral.RomanNumeralFromInt
 (3.toRomanNumeral * C / V) - L - X // res7: RomanNumeral = nulla
-import RomanNumeral.RomanNumeralFromString
+import nl.gn0s1s.julius.RomanNumeral.RomanNumeralFromString
 "XX".toRomanNumeral.get * V // res8: RomanNumeral = C
 ```
 

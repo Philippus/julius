@@ -1,3 +1,5 @@
+package nl.gn0s1s.julius
+
 import scala.annotation.tailrec
 
 import org.scalacheck._
