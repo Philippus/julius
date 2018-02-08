@@ -50,6 +50,7 @@ Note that this last method expects compacted Roman Numerals (f.e. IV instead of 
 
 ```scala
 import nl.gn0s1s.julius.RomanDigit._
+import nl.gn0s1s.julius.RomanNumeral
 RomanNumeral(List(I, I, X, I)) // res0: RomanNumeral = XIII
 import nl.gn0s1s.julius.RomanNumeral.RomanNumeralFromInt
 1666.toRomanNumeral // res1: RomanNumeral = MDCLXVI
@@ -61,6 +62,7 @@ import nl.gn0s1s.julius.RomanNumeral.RomanNumeralFromString
 The special value `nulla` (zero) can also be constructed similarly:
 
 ```scala
+import nl.gn0s1s.julius.RomanNumeral
 RomanNumeral() // res3: RomanNumeral = nulla
 import nl.gn0s1s.julius.RomanNumeral.RomanNumeralFromInt
 0.toRomanNumeral // res4: RomanNumeral = nulla
