@@ -1,6 +1,6 @@
 name := "julius"
 organization := "nl.gn0s1s"
-version := "1.0.0"
+version := "1.0.1"
 startYear := Some(2016)
 homepage := Some(url("https://github.com/philippus/julius"))
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
