@@ -5,7 +5,7 @@ startYear := Some(2016)
 homepage := Some(url("https://github.com/philippus/julius"))
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
-scalaVersion := "2.13.4"
+scalaVersion := "2.13.5"
 
 bintrayOrganization := Some("gn0s1s")
 bintrayRepository := "releases"
