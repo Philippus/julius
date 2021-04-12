@@ -22,8 +22,6 @@ converting back and forth from integers.
 Julius is published for Scala 2.13. To start using it add the following to your `build.sbt`:
 
 ```
-resolvers += Resolver.bintrayRepo("gn0s1s", "releases")
-
 libraryDependencies += "nl.gn0s1s" %% "julius" % "1.0.2"
 ```
 
