@@ -1,7 +1,7 @@
 # Julius - Roman Numerals
 
 ![build](https://github.com/Philippus/julius/workflows/build/badge.svg)
-[![codecov](https://codecov.io/gh/Philippus/julius/branch/master/graph/badge.svg)](https://codecov.io/gh/Philippus/julius)
+[![codecov](https://codecov.io/gh/Philippus/julius/branch/main/graph/badge.svg)](https://codecov.io/gh/Philippus/julius)
 ![Current Version](https://img.shields.io/badge/version-1.0.2-brightgreen.svg?style=flat "1.0.2")
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat "MIT")](LICENSE.md)
 
@@ -22,8 +22,6 @@ converting back and forth from integers.
 Julius is published for Scala 2.13. To start using it add the following to your `build.sbt`:
 
 ```
-resolvers += Resolver.bintrayRepo("gn0s1s", "releases")
-
 libraryDependencies += "nl.gn0s1s" %% "julius" % "1.0.2"
 ```
 
