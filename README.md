@@ -1,6 +1,6 @@
 # Julius - Roman Numerals
 
-![build](https://github.com/Philippus/julius/workflows/build/badge.svg)
+[![build](https://github.com/Philippus/julius/workflows/build/badge.svg)](https://github.com/Philippus/julius/actions/workflows/scala.yml?query=workflow%3Abuild+branch%3Amain)
 [![codecov](https://codecov.io/gh/Philippus/julius/branch/main/graph/badge.svg)](https://codecov.io/gh/Philippus/julius)
 ![Current Version](https://img.shields.io/badge/version-1.0.2-brightgreen.svg?style=flat "1.0.2")
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat "MIT")](LICENSE.md)
