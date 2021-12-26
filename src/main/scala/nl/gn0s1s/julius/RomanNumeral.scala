@@ -7,7 +7,7 @@ import ExtendedList._
 
 sealed trait RomanNumeral extends Ordered[RomanNumeral] {
   import RomanDigit._
-  import RomanNumeral.{ Nulla, RomanDigits }
+  import RomanNumeral.{Nulla, RomanDigits}
 
   override def toString: String =
     RomanNumeral.RomanNumeralConversions(this).toString
@@ -22,7 +22,12 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
     case (Nulla, _) => that != Nulla
     case (_, Nulla) => false
     case (RomanDigits(l), RomanDigits(r)) =>
-      @tailrec def lessThanHelper(digits: List[RomanDigit], l: List[RomanDigit], r: List[RomanDigit], compare: Int): Boolean = {
+      @tailrec def lessThanHelper(
+          digits: List[RomanDigit],
+          l: List[RomanDigit],
+          r: List[RomanDigit],
+          compare: Int
+      ): Boolean = {
         if (compare != 0 || digits.isEmpty) compare < 0
         else lessThanHelper(digits.tail, l, r, l.count(_ == digits.head).compare(r.count(_ == digits.head)))
       }
@@ -47,12 +52,16 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
           L -> List(X, X, X, X, X),
           C -> List(L, L),
           D -> List(C, C, C, C, C),
-          M -> List(D, D))
+          M -> List(D, D)
+        )
 
         def findAndExpand(r: List[RomanDigit], largestRemaining: RomanDigit): List[RomanDigit] = {
           val (largerDigits, smallerOrEqualDigits) = r.partition(_ > largestRemaining)
           val smallestLargerDigit = largerDigits.last
-          largerDigits.init ::: substitutes.getOrElse(smallestLargerDigit, List(smallestLargerDigit)) ::: smallerOrEqualDigits
+          largerDigits.init ::: substitutes.getOrElse(
+            smallestLargerDigit,
+            List(smallestLargerDigit)
+          ) ::: smallerOrEqualDigits
         }
 
         if (s.isEmpty) RomanNumeral(r)
@@ -68,7 +77,11 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
     case (Nulla, _) => Nulla
     case (_, Nulla) => Nulla
     case (RomanDigits(_), RomanDigits(_)) =>
-      @tailrec def timesHelper(r: RomanNumeral, s: RomanNumeral, acc: List[(RomanNumeral, RomanNumeral)]): List[(RomanNumeral, RomanNumeral)] = {
+      @tailrec def timesHelper(
+          r: RomanNumeral,
+          s: RomanNumeral,
+          acc: List[(RomanNumeral, RomanNumeral)]
+      ): List[(RomanNumeral, RomanNumeral)] = {
         if (r == RomanNumeral(I)) acc ::: List((r, s))
         else timesHelper(r.halve, s.double, acc ::: List((r, s)))
       }
@@ -120,7 +133,11 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
       val digits = List(M, D, C, L, X, V, I)
       val multiplicationTable = digits.zip(digits.map(x => RomanNumeral(x).times(that)))
 
-      @tailrec def divHelper(multiplicationTable: List[(RomanDigit, RomanNumeral)], acc: List[RomanDigit], remainder: RomanNumeral): RomanNumeral = {
+      @tailrec def divHelper(
+          multiplicationTable: List[(RomanDigit, RomanNumeral)],
+          acc: List[RomanDigit],
+          remainder: RomanNumeral
+      ): RomanNumeral = {
         if (multiplicationTable.isEmpty) RomanNumeral(acc)
         else {
           val (digit, multiple) = multiplicationTable.head
@@ -140,7 +157,8 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
         List(X, X, X, X, X) -> List(L),
         List(L, L) -> List(C),
         List(C, C, C, C, C) -> List(D),
-        List(D, D) -> List(M))
+        List(D, D) -> List(M)
+      )
       RomanDigits(l.substitute(substitutes))
   }
 }
@@ -175,7 +193,7 @@ object RomanNumeral {
     }
 
     override def toString: String = {
-      import RomanDigit.{ M, D, C, L, X, V, I }
+      import RomanDigit.{M, D, C, L, X, V, I}
       n match {
         case Nulla => "nulla"
         case RomanDigits(l) =>
@@ -185,7 +203,8 @@ object RomanNumeral {
             List(L, X, X, X, X) -> List(X, C),
             List(X, X, X, X) -> List(X, L),
             List(V, I, I, I, I) -> List(I, X),
-            List(I, I, I, I) -> List(I, V))
+            List(I, I, I, I) -> List(I, V)
+          )
           l.substitute(substitutes).mkString
       }
     }
@@ -193,8 +212,12 @@ object RomanNumeral {
 
   implicit class RomanNumeralFromInt(i: Int) {
     def toRomanNumeral: RomanNumeral = {
-      import RomanDigit.{ M, D, C, L, X, V, I }
-      @tailrec def intToRomanNumeralHelper(digits: List[RomanDigit], acc: List[RomanDigit], remainder: Int): RomanNumeral = {
+      import RomanDigit.{M, D, C, L, X, V, I}
+      @tailrec def intToRomanNumeralHelper(
+          digits: List[RomanDigit],
+          acc: List[RomanDigit],
+          remainder: Int
+      ): RomanNumeral = {
         if (digits.isEmpty || remainder == 0) RomanNumeral(acc)
         else {
           val digit = digits.head
@@ -210,7 +233,7 @@ object RomanNumeral {
   }
 
   implicit class RomanNumeralFromString(s: String) {
-    import RomanDigit.{ M, D, C, L, X, V, I }
+    import RomanDigit.{M, D, C, L, X, V, I}
 
     def uncompact(l: List[RomanDigit]): List[RomanDigit] = {
       val substitutes = ListMap[List[RomanDigit], List[RomanDigit]](
@@ -219,7 +242,8 @@ object RomanNumeral {
         List(X, L) -> List(X, X, X, X),
         List(X, C) -> List(L, X, X, X, X),
         List(C, D) -> List(C, C, C, C),
-        List(C, M) -> List(D, C, C, C, C))
+        List(C, M) -> List(D, C, C, C, C)
+      )
       l.substitute(substitutes)
     }
 
