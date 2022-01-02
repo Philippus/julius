@@ -65,11 +65,11 @@ object JuliusSpec extends Properties("Julius") {
       case RomanNumeral.Nulla => true
       case RomanNumeral.RomanDigits(l) =>
         !(l containsSlice List(I, I, I, I, I)) &&
-          !(l containsSlice List(V, V)) &&
-          !(l containsSlice List(X, X, X, X, X)) &&
-          !(l containsSlice List(L, L)) &&
-          !(l containsSlice List(C, C, C, C, C)) &&
-          !(l containsSlice List(D, D))
+        !(l containsSlice List(V, V)) &&
+        !(l containsSlice List(X, X, X, X, X)) &&
+        !(l containsSlice List(L, L)) &&
+        !(l containsSlice List(C, C, C, C, C)) &&
+        !(l containsSlice List(D, D))
     }
   }
 
