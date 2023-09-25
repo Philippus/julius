@@ -19,8 +19,8 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
   }
 
   override def <(that: RomanNumeral): Boolean = (this, that) match {
-    case (Nulla, _) => that != Nulla
-    case (_, Nulla) => false
+    case (Nulla, _)                       => that != Nulla
+    case (_, Nulla)                       => false
     case (RomanDigits(l), RomanDigits(r)) =>
       @tailrec def lessThanHelper(
           digits: List[RomanDigit],
@@ -35,16 +35,16 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
   }
 
   def plus(that: RomanNumeral): RomanNumeral = (this, that) match {
-    case (Nulla, _) => that
-    case (_, Nulla) => this
+    case (Nulla, _)                       => that
+    case (_, Nulla)                       => this
     case (RomanDigits(l), RomanDigits(r)) => RomanNumeral(l ++ r)
   }
 
   def minus(that: RomanNumeral): RomanNumeral = (this, that) match {
-    case (Nulla, _) => Nulla
-    case (_, Nulla) => this
+    case (Nulla, _)                                       => Nulla
+    case (_, Nulla)                                       => this
     case (RomanDigits(_), RomanDigits(_)) if this <= that => Nulla
-    case (RomanDigits(l), RomanDigits(r)) =>
+    case (RomanDigits(l), RomanDigits(r))                 =>
       @tailrec def minusHelper(r: List[RomanDigit], s: List[RomanDigit]): RomanNumeral = {
         val substitutes = ListMap[RomanDigit, List[RomanDigit]](
           V -> List(I, I, I, I, I),
@@ -57,7 +57,7 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
 
         def findAndExpand(r: List[RomanDigit], largestRemaining: RomanDigit): List[RomanDigit] = {
           val (largerDigits, smallerOrEqualDigits) = r.partition(_ > largestRemaining)
-          val smallestLargerDigit = largerDigits.last
+          val smallestLargerDigit                  = largerDigits.last
           largerDigits.init ::: substitutes.getOrElse(
             smallestLargerDigit,
             List(smallestLargerDigit)
@@ -74,8 +74,8 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
   }
 
   def times(that: RomanNumeral): RomanNumeral = (this, that) match {
-    case (Nulla, _) => Nulla
-    case (_, Nulla) => Nulla
+    case (Nulla, _)                       => Nulla
+    case (_, Nulla)                       => Nulla
     case (RomanDigits(_), RomanDigits(_)) =>
       @tailrec def timesHelper(
           r: RomanNumeral,
@@ -92,18 +92,18 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
   }
 
   def halve: RomanNumeral = this match {
-    case Nulla => Nulla
+    case Nulla          => Nulla
     case RomanDigits(l) =>
       @tailrec def halveHelper(l: List[RomanDigit], acc: List[RomanDigit]): RomanNumeral = l match {
-        case M :: tl => halveHelper(tl, D :: acc)
-        case D :: tl => halveHelper(C :: tl, C :: C :: acc)
-        case C :: tl => halveHelper(tl, L :: acc)
-        case L :: tl => halveHelper(X :: tl, X :: X :: acc)
-        case X :: tl => halveHelper(tl, V :: acc)
-        case V :: tl => halveHelper(I :: tl, I :: I :: acc)
+        case M :: tl      => halveHelper(tl, D :: acc)
+        case D :: tl      => halveHelper(C :: tl, C :: C :: acc)
+        case C :: tl      => halveHelper(tl, L :: acc)
+        case L :: tl      => halveHelper(X :: tl, X :: X :: acc)
+        case X :: tl      => halveHelper(tl, V :: acc)
+        case V :: tl      => halveHelper(I :: tl, I :: I :: acc)
         case I :: I :: tl => halveHelper(tl, I :: acc)
-        case I :: tl => halveHelper(tl, acc)
-        case Nil => RomanNumeral(acc)
+        case I :: tl      => halveHelper(tl, acc)
+        case Nil          => RomanNumeral(acc)
       }
       halveHelper(l, acc = List())
   }
@@ -111,7 +111,7 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
   def double: RomanNumeral = this plus this
 
   def isOdd: Boolean = this match {
-    case Nulla => false
+    case Nulla          => false
     case RomanDigits(l) =>
       @tailrec def isOddHelper(l: List[RomanDigit], isOdd: Boolean): Boolean = l match {
         case M :: tl => isOddHelper(tl, isOdd)
@@ -121,16 +121,16 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
         case X :: tl => isOddHelper(tl, isOdd)
         case V :: tl => isOddHelper(tl, !isOdd)
         case I :: tl => isOddHelper(tl, !isOdd)
-        case Nil => isOdd
+        case Nil     => isOdd
       }
       isOddHelper(l, isOdd = false)
   }
 
   def div(that: RomanNumeral): RomanNumeral = (this, that) match {
-    case (_, Nulla) => throw new ArithmeticException("/ by nulla")
-    case (Nulla, _) => Nulla
+    case (_, Nulla)                       => throw new ArithmeticException("/ by nulla")
+    case (Nulla, _)                       => Nulla
     case (RomanDigits(_), RomanDigits(_)) =>
-      val digits = List(M, D, C, L, X, V, I)
+      val digits              = List(M, D, C, L, X, V, I)
       val multiplicationTable = digits.zip(digits.map(x => RomanNumeral(x).times(that)))
 
       @tailrec def divHelper(
@@ -149,26 +149,26 @@ sealed trait RomanNumeral extends Ordered[RomanNumeral] {
   }
 
   def optimize: RomanNumeral = this match {
-    case Nulla => Nulla
+    case Nulla          => Nulla
     case RomanDigits(l) =>
       val substitutes = ListMap[List[RomanDigit], List[RomanDigit]](
         List(I, I, I, I, I) -> List(V),
-        List(V, V) -> List(X),
+        List(V, V)          -> List(X),
         List(X, X, X, X, X) -> List(L),
-        List(L, L) -> List(C),
+        List(L, L)          -> List(C),
         List(C, C, C, C, C) -> List(D),
-        List(D, D) -> List(M)
+        List(D, D)          -> List(M)
       )
       RomanDigits(l.substitute(substitutes))
   }
 }
 
 object RomanNumeral {
-  case object Nulla extends RomanNumeral
+  case object Nulla                                 extends RomanNumeral
   final case class RomanDigits(l: List[RomanDigit]) extends RomanNumeral
 
-  def apply(): RomanNumeral = RomanNumeral(List())
-  def apply(r: RomanDigit): RomanNumeral = RomanNumeral(List(r))
+  def apply(): RomanNumeral                    = RomanNumeral(List())
+  def apply(r: RomanDigit): RomanNumeral       = RomanNumeral(List(r))
   def apply(l: List[RomanDigit]): RomanNumeral = {
     if (l.isEmpty) Nulla
     else RomanDigits(l.sorted.reverse).optimize
@@ -179,31 +179,31 @@ object RomanNumeral {
     def -(rhs: RomanNumeral): RomanNumeral = lhs.minus(rhs)
     def *(rhs: RomanNumeral): RomanNumeral = lhs.times(rhs)
     def /(rhs: RomanNumeral): RomanNumeral = lhs.div(rhs)
-    def +(rhs: RomanDigit): RomanNumeral = lhs.plus(RomanNumeral(rhs))
-    def -(rhs: RomanDigit): RomanNumeral = lhs.minus(RomanNumeral(rhs))
-    def *(rhs: RomanDigit): RomanNumeral = lhs.times(RomanNumeral(rhs))
-    def /(rhs: RomanDigit): RomanNumeral = lhs.div(RomanNumeral(rhs))
+    def +(rhs: RomanDigit): RomanNumeral   = lhs.plus(RomanNumeral(rhs))
+    def -(rhs: RomanDigit): RomanNumeral   = lhs.minus(RomanNumeral(rhs))
+    def *(rhs: RomanDigit): RomanNumeral   = lhs.times(RomanNumeral(rhs))
+    def /(rhs: RomanDigit): RomanNumeral   = lhs.div(RomanNumeral(rhs))
   }
 
   implicit class RomanNumeralConversions(n: RomanNumeral) {
     import RomanDigit.RomanDigitConversions
     def toInt: Int = n match {
-      case RomanNumeral.Nulla => 0
+      case RomanNumeral.Nulla          => 0
       case RomanNumeral.RomanDigits(l) => l.map(_.toInt).sum
     }
 
     override def toString: String = {
       import RomanDigit.{M, D, C, L, X, V, I}
       n match {
-        case Nulla => "nulla"
+        case Nulla          => "nulla"
         case RomanDigits(l) =>
           val substitutes = ListMap[List[RomanDigit], List[RomanDigit]](
             List(D, C, C, C, C) -> List(C, M),
-            List(C, C, C, C) -> List(C, D),
+            List(C, C, C, C)    -> List(C, D),
             List(L, X, X, X, X) -> List(X, C),
-            List(X, X, X, X) -> List(X, L),
+            List(X, X, X, X)    -> List(X, L),
             List(V, I, I, I, I) -> List(I, X),
-            List(I, I, I, I) -> List(I, V)
+            List(I, I, I, I)    -> List(I, V)
           )
           l.substitute(substitutes).mkString
       }
@@ -249,58 +249,58 @@ object RomanNumeral {
 
     @tailrec private def validMs(l: List[RomanDigit]): Boolean = l match {
       case M :: tl => validMs(tl)
-      case _ => validCs(l)
+      case _       => validCs(l)
     }
 
     def validCs(l: List[RomanDigit]): Boolean = l match {
-      case C :: M :: tl => validXs(tl)
+      case C :: M :: tl           => validXs(tl)
       case D :: C :: C :: C :: tl => validXs(tl)
-      case D :: C :: C :: tl => validXs(tl)
-      case D :: C :: tl => validXs(tl)
-      case D :: tl => validXs(tl)
-      case C :: D :: tl => validXs(tl)
-      case C :: C :: C :: tl => validXs(tl)
-      case C :: C :: tl => validXs(tl)
-      case C :: tl => validXs(tl)
-      case _ => validXs(l)
+      case D :: C :: C :: tl      => validXs(tl)
+      case D :: C :: tl           => validXs(tl)
+      case D :: tl                => validXs(tl)
+      case C :: D :: tl           => validXs(tl)
+      case C :: C :: C :: tl      => validXs(tl)
+      case C :: C :: tl           => validXs(tl)
+      case C :: tl                => validXs(tl)
+      case _                      => validXs(l)
     }
 
     def validXs(l: List[RomanDigit]): Boolean = l match {
-      case X :: C :: tl => validIs(tl)
+      case X :: C :: tl           => validIs(tl)
       case L :: X :: X :: X :: tl => validIs(tl)
-      case L :: X :: X :: tl => validIs(tl)
-      case L :: X :: tl => validIs(tl)
-      case L :: tl => validIs(tl)
-      case X :: L :: tl => validIs(tl)
-      case X :: X :: X :: tl => validIs(tl)
-      case X :: X :: tl => validIs(tl)
-      case X :: tl => validIs(tl)
-      case _ => validIs(l)
+      case L :: X :: X :: tl      => validIs(tl)
+      case L :: X :: tl           => validIs(tl)
+      case L :: tl                => validIs(tl)
+      case X :: L :: tl           => validIs(tl)
+      case X :: X :: X :: tl      => validIs(tl)
+      case X :: X :: tl           => validIs(tl)
+      case X :: tl                => validIs(tl)
+      case _                      => validIs(l)
     }
 
     def validIs(l: List[RomanDigit]): Boolean = l match {
-      case I :: X :: Nil => true
+      case I :: X :: Nil           => true
       case V :: I :: I :: I :: Nil => true
-      case V :: I :: I :: Nil => true
-      case V :: I :: Nil => true
-      case V :: Nil => true
-      case I :: V :: Nil => true
-      case I :: I :: I :: Nil => true
-      case I :: I :: Nil => true
-      case I :: Nil => true
-      case Nil => true
-      case _ => false
+      case V :: I :: I :: Nil      => true
+      case V :: I :: Nil           => true
+      case V :: Nil                => true
+      case I :: V :: Nil           => true
+      case I :: I :: I :: Nil      => true
+      case I :: I :: Nil           => true
+      case I :: Nil                => true
+      case Nil                     => true
+      case _                       => false
     }
 
     def toRomanNumeral: Option[RomanNumeral] = {
       import RomanDigit.RomanDigitFromChar
       val candidate = s.map(_.toRomanDigit).toList
       s match {
-        case "nulla" =>
+        case "nulla"                                                      =>
           Option(RomanNumeral())
         case _ if !candidate.contains(None) && validMs(candidate.flatten) =>
           Option(RomanNumeral(uncompact(candidate.flatten)))
-        case _ =>
+        case _                                                            =>
           None
       }
     }
