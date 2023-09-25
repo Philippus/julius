@@ -31,7 +31,7 @@ object Generators {
   implicit val arbitraryRomanNumeral: Arbitrary[RomanNumeral] = Arbitrary(genRomanNumeral)
 
   implicit val shrinkRomanNumeral: Shrink[RomanNumeral] = Shrink {
-    case RomanNumeral.Nulla => Stream.empty
+    case RomanNumeral.Nulla          => Stream.empty
     case RomanNumeral.RomanDigits(l) => shrink(l).map(RomanNumeral.apply)
   }
 }

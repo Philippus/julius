@@ -30,10 +30,10 @@ object RomanDigit {
   case object M extends RomanDigit
 
   implicit class RomanDigitOps(lhs: RomanDigit) {
-    def +(rhs: RomanDigit): RomanNumeral = RomanNumeral(lhs).plus(RomanNumeral(rhs))
-    def -(rhs: RomanDigit): RomanNumeral = RomanNumeral(lhs).minus(RomanNumeral(rhs))
-    def *(rhs: RomanDigit): RomanNumeral = RomanNumeral(lhs).times(RomanNumeral(rhs))
-    def /(rhs: RomanDigit): RomanNumeral = RomanNumeral(lhs).div(RomanNumeral(rhs))
+    def +(rhs: RomanDigit): RomanNumeral   = RomanNumeral(lhs).plus(RomanNumeral(rhs))
+    def -(rhs: RomanDigit): RomanNumeral   = RomanNumeral(lhs).minus(RomanNumeral(rhs))
+    def *(rhs: RomanDigit): RomanNumeral   = RomanNumeral(lhs).times(RomanNumeral(rhs))
+    def /(rhs: RomanDigit): RomanNumeral   = RomanNumeral(lhs).div(RomanNumeral(rhs))
     def +(rhs: RomanNumeral): RomanNumeral = RomanNumeral(lhs).plus(rhs)
     def -(rhs: RomanNumeral): RomanNumeral = RomanNumeral(lhs).minus(rhs)
     def *(rhs: RomanNumeral): RomanNumeral = RomanNumeral(lhs).times(rhs)
@@ -71,7 +71,7 @@ object RomanDigit {
       case 'C' => Some(C)
       case 'D' => Some(D)
       case 'M' => Some(M)
-      case _ => None
+      case _   => None
     }
   }
 }
