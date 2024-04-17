@@ -21,5 +21,5 @@ Compile / packageBin / packageOptions += Package.ManifestAttributes("Automatic-M
 scalaVersion := "2.13.13"
 
 libraryDependencies ++= Seq(
-  "org.scalacheck" %% "scalacheck" % "1.17.0" % Test
+  "org.scalacheck" %% "scalacheck" % "1.17.1" % Test
 )
