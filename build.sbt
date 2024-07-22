@@ -18,7 +18,8 @@ ThisBuild / versionPolicyIntention := Compatibility.None
 
 Compile / packageBin / packageOptions += Package.ManifestAttributes("Automatic-Module-Name" -> "nl.gn0s1s.julius")
 
-scalaVersion := "2.13.14"
+crossScalaVersions := List("2.13.14", "3.3.3")
+scalaVersion       := crossScalaVersions.value.head
 
 libraryDependencies ++= Seq(
   "org.scalacheck" %% "scalacheck" % "1.18.0" % Test

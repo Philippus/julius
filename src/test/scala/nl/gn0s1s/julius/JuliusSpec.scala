@@ -10,7 +10,7 @@ object JuliusSpec extends Properties("Julius") {
   import RomanDigit._
   import RomanNumeral._
 
-  property("RomanDigit.generator only generates roman digits") = forAll { r: RomanDigit =>
+  property("RomanDigit.generator only generates roman digits") = forAll { (r: RomanDigit) =>
     r match {
       case I => true
       case V => true
@@ -22,14 +22,14 @@ object JuliusSpec extends Properties("Julius") {
     }
   }
 
-  property("RomanNumeral.generator only generates roman numerals") = forAll { n: RomanNumeral =>
+  property("RomanNumeral.generator only generates roman numerals") = forAll { (n: RomanNumeral) =>
     n match {
       case RomanNumeral.Nulla          => true
       case RomanNumeral.RomanDigits(_) => true
     }
   }
 
-  property("RomanNumeral should be Nulla or consist of one or more digits") = forAll { n: RomanNumeral =>
+  property("RomanNumeral should be Nulla or consist of one or more digits") = forAll { (n: RomanNumeral) =>
     n match {
       case RomanNumeral.Nulla          => true
       case RomanNumeral.RomanDigits(l) => l.nonEmpty
@@ -53,7 +53,7 @@ object JuliusSpec extends Properties("Julius") {
     case _              => true
   }
 
-  property("RomanNumeral always has its digits sorted from high to low") = forAll { n: RomanNumeral =>
+  property("RomanNumeral always has its digits sorted from high to low") = forAll { (n: RomanNumeral) =>
     n match {
       case RomanNumeral.Nulla          => true
       case RomanNumeral.RomanDigits(l) => checkList(l)
@@ -219,7 +219,7 @@ object JuliusSpec extends Properties("Julius") {
       (n: RomanNumeral, m: RomanNumeral, o: RomanNumeral) => n.times(m).times(o) == n.times(m.times(o))
     }
 
-  property("RomanNumeral multiplication has an identity element") = forAll(genRomanNumeral) { n: RomanNumeral =>
+  property("RomanNumeral multiplication has an identity element") = forAll(genRomanNumeral) { (n: RomanNumeral) =>
     n * I == I * n && n * I == n
   }
 
