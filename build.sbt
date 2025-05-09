@@ -18,7 +18,7 @@ ThisBuild / versionPolicyIntention := Compatibility.None
 
 Compile / packageBin / packageOptions += Package.ManifestAttributes("Automatic-Module-Name" -> "nl.gn0s1s.julius")
 
-crossScalaVersions := List("2.13.16", "3.3.5")
+crossScalaVersions := List("2.13.16", "3.3.6")
 scalaVersion       := crossScalaVersions.value.head
 
 libraryDependencies ++= Seq(
